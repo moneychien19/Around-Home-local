@@ -8,7 +8,7 @@
 ### Database
 1. Open pgadmin.
 2. Create a database called `AroundHome` (or whatever name you like, but remember to change the database name in .env file)
-3. Restore the database with `AroundHome_backup.sql`, which can be found in `data` folder.
+3. Restore the database with `AroundHome_backup.sql`, which can be found in `backend/around_home_backend/data` folder.
 
 ![](https://i.imgur.com/IDnynRR.jpg)
 ![](https://i.imgur.com/3GZX8bg.jpg)
