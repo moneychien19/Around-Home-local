@@ -2,6 +2,7 @@
 - [How to run the backend server](#How-to-run-the-backend-server)
 - [APIs](#APIs)
 - [Todo list](#Todo-list)
+- [Convert address to coordinate in python](#Convert-address-to-coordinate-in-python)
 
 ## How to run the backend server
 
@@ -20,12 +21,12 @@ git clone https://github.com/moneychien19/db1101_midterm.git
 cd db1101_midterm/backend
 
 # Activate virtual enviroment
-python3 -m venv env
+python -m venv env
 source env/bin/activate
 cd around_home_backend
 
 # Install dependencies
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 2. Modify the last line in `.env` file. Fill in your username, password and database name in the DATABASE_URL.
 
@@ -115,6 +116,9 @@ POST
     "latitude": 25.0240174
 }
 ```
+
+## Convert address to coordinate in python
+Reference: [googlemaps](https://github.com/googlemaps/google-maps-services-python) package
 
 ## Todo list
 - [ ] Add remaining tables
