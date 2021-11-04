@@ -1,6 +1,14 @@
 import React from "react";
 
 const Environment = () => {
+  const header = ["指標", "鄰近測站", "數值", "狀態"];
+  let environmentData = [
+    ["空氣品質指標AQI", "新北市-永和", 37, "良好"],
+    ["紫外線指數", "新北市-板橋", 6, "高量級"],
+    ["水庫水質卡爾森指數", "翡翠水庫", 52, "優氧"],
+    ["河川汙染指數", "淡水河-中正橋", 4.5, "中度汙染"],
+  ];
+
   return (
     <div className="whole">
       <div className="card" id="environment">
@@ -10,36 +18,22 @@ const Environment = () => {
         </div>
         <div className="table">
           <table>
-            <tr>
-              <td></td>
-              <td>鄰近測站</td>
-              <td>數值</td>
-              <td>狀態</td>
-            </tr>
-            <tr>
-              <td>空氣品質指標AQI</td>
-              <td>新北市-永和</td>
-              <td>37</td>
-              <td>良好</td>
-            </tr>
-            <tr>
-              <td>紫外線指數</td>
-              <td>新北市-板橋</td>
-              <td>6</td>
-              <td>高量級</td>
-            </tr>
-            <tr>
-              <td>水庫水質卡爾森指數</td>
-              <td>翡翠水庫</td>
-              <td>52</td>
-              <td>優氧</td>
-            </tr>
-            <tr>
-              <td>河川汙染指數</td>
-              <td>淡水河-中正橋</td>
-              <td>4.5</td>
-              <td>中度汙染</td>
-            </tr>
+            <thead>
+              <tr>
+                {header.map((item) => (
+                  <td>{item}</td>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {environmentData.map((aRow) => (
+                <tr>
+                  {aRow.map((anItem) => (
+                    <td>{anItem}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>

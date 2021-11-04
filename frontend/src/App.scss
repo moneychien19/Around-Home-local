@@ -44,7 +44,7 @@ div#root {
         padding-right: 1rem;
         padding-top: 0.5rem;
       }
-      button {
+      button.condition {
         font-size: 1.1rem;
         border: #c6c6c6 solid 2px;
         border-radius: 0.5rem;
@@ -58,6 +58,12 @@ div#root {
           border: #eb9c23 solid 2px;
           cursor: pointer;
         }
+      }
+      button.checked {
+        background-color: #eb9c23;
+        color: white;
+        border: #eb9c23 solid 2px;
+        cursor: pointer;
       }
     }
     button.submit {
@@ -125,10 +131,21 @@ div#root {
   }
   div#environment {
     table {
-      tr {
-        td {
-          text-align: center;
-          padding: 0.5rem 2rem;
+      thead {
+        font-size: 1.25rem;
+        tr {
+          td {
+            text-align: center;
+            padding: 1.1rem 2rem;
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            text-align: center;
+            padding: 0.5rem 2rem;
+          }
         }
       }
     }

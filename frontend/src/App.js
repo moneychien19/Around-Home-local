@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useState } from "react";
 import Form from "./Form";
 import logo from "./logo.svg";
 import "./App.css";
@@ -9,21 +9,15 @@ import Map from "./Map";
 
 function App() {
   // determine the show block
-  let checkEnvironment = true;
-  let checkEco = true;
-  let checkSafety = true;
-  let createNewWhole = false;
-  if (checkEco === checkSafety) {
-    createNewWhole = true;
-  }
+  let [showContent, setShowContent] = useState([false, false, false]);
 
   return (
     <div className="App">
-      <Form />
-      {checkEnvironment ? <Environment /> : null}
+      <Form showContent={showContent} setShowContent={setShowContent} />
+      {showContent[0] ? <Environment /> : null}
 
-      {checkEco ? (
-        checkSafety ? (
+      {showContent[1] ? (
+        showContent[2] ? (
           <div className="twoSide">
             <div className="left">
               <Eco />
@@ -42,7 +36,7 @@ function App() {
             </div>
           </div>
         )
-      ) : checkSafety ? (
+      ) : showContent[2] ? (
         <div className="twoSide">
           <div className="left">
             <Map />
@@ -52,7 +46,7 @@ function App() {
           </div>
         </div>
       ) : null}
-      {createNewWhole ? (
+      {showContent[1] === showContent[2] ? (
         <div className="whole">
           <Map />
         </div>

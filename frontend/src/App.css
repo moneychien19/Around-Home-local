@@ -67,7 +67,7 @@ div#root form.search div.conditionTags label {
   padding-top: 0.5rem;
 }
 
-div#root form.search div.conditionTags button {
+div#root form.search div.conditionTags button.condition {
   font-size: 1.1rem;
   border: #c6c6c6 solid 2px;
   border-radius: 0.5rem;
@@ -77,7 +77,14 @@ div#root form.search div.conditionTags button {
   background-color: #ffffff;
 }
 
-div#root form.search div.conditionTags button:hover {
+div#root form.search div.conditionTags button.condition:hover {
+  background-color: #eb9c23;
+  color: white;
+  border: #eb9c23 solid 2px;
+  cursor: pointer;
+}
+
+div#root form.search div.conditionTags button.checked {
   background-color: #eb9c23;
   color: white;
   border: #eb9c23 solid 2px;
@@ -170,7 +177,16 @@ div#root div.card div.table {
   margin-top: 0.5rem;
 }
 
-div#root div#environment table tr td {
+div#root div#environment table thead {
+  font-size: 1.25rem;
+}
+
+div#root div#environment table thead tr td {
+  text-align: center;
+  padding: 1.1rem 2rem;
+}
+
+div#root div#environment table tbody tr td {
   text-align: center;
   padding: 0.5rem 2rem;
 }
