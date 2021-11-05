@@ -202,13 +202,9 @@ div#root div#safety table tr td {
 }
 
 div#root div#map {
-  padding: 0;
-}
-
-div#root div#map iframe {
   width: 100%;
-  height: 58vh;
+  height: 60vh;
   border-radius: 2rem;
-  border: 0;
+  padding: 0;
 }
 /*# sourceMappingURL=App.css.map */

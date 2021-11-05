@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import GoogleMapReact from "google-map-react";
 
-const Map = () => {
+// const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+// Map
+function Map({ lat, lng }) {
+  let mapZoom = 17;
+  let apiKey = "AIzaSyAZiSDS9dGBypZ47A4HrwPZf-fMdJ66faQ";
+
   return (
     <div className="card" id="map">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.0123694434556!2d121.50374371423756!3d24.999695645821394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9d97005baeb%3A0x4b9d6f5dc4d49713!2z5paw5YyX5biC5Lit5ZKM5Y2A5Lit5ZKM6Lev!5e0!3m2!1szh-TW!2stw!4v1635673974529!5m2!1szh-TW!2stw"
-        allowFullScreen=""
-        loading="lazy"
-      ></iframe>
+      <div style={{ width: "100%", height: "100%", padding: "0.6rem" }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: apiKey }}
+          center={{ lat: lat, lng: lng }}
+          defaultZoom={mapZoom}
+        >
+          {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
+        </GoogleMapReact>
+      </div>
     </div>
   );
-};
+}
 
 export default Map;

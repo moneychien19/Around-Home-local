@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const Form = ({ showContent, setShowContent }) => {
+const Form = ({ showContent, setShowContent, setLat, setLng }) => {
+  let [address, setAddress] = useState("");
+  let [url, setUrl] = useState("");
+  const [error, setError] = useState(null);
+
+  const inputHandler = (e) => {
+    setAddress(e.target.value);
+  };
+
   const onclickEnvironment = (e) => {
     e.preventDefault();
     e.target.classList.toggle("checked");
@@ -29,37 +38,49 @@ const Form = ({ showContent, setShowContent }) => {
     }
   };
 
-  // when submitting, turn the address to 經緯度
+  // when submitting, set the url of Google map API
   const submitHandler = (e) => {
     e.preventDefault();
-    let address = e.target.parentElement.querySelector(
-      "div.addressTags input"
-    ).value;
-    console.log(address);
-    // getLatLngByAddr(address);
+    console.log(showContent, address);
+    setUrl(
+      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        address +
+        "&key=AIzaSyAZiSDS9dGBypZ47A4HrwPZf-fMdJ66faQ"
+    );
   };
 
-  // let getLatLngByAddr = (address) => {
-  //   var geocoder = new google.maps.Geocoder(); //定義一個Geocoder物件
-  //   geocoder.geocode(
-  //     { address: address }, //設定地址的字串
-  //     function (results, status) {
-  //       //callback function
-  //       if (status == google.maps.GeocoderStatus.OK) {
-  //         //判斷狀態
-  //         alert(results[0].geometry.location); //取得座標
-  //       } else {
-  //         alert("Error");
-  //       }
-  //     }
-  //   );
-  // };
+  // when the url changes, fetch the latitude and longitude of the address
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((response) => {
+        setLat(
+          response.data["results"][0]["geometry"]["viewport"]["northeast"][
+            "lat"
+          ]
+        );
+        setLng(
+          response.data["results"][0]["geometry"]["viewport"]["northeast"][
+            "lng"
+          ]
+        );
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  }, [url]);
 
   return (
-    <form action="get" className="search">
+    <form className="search" onSubmit={submitHandler}>
       <div className="addressTags">
         <label htmlFor="address">地址</label>
-        <input type="text" id="address" name="inputAddress" />
+        <input
+          type="text"
+          id="address"
+          name="inputAddress"
+          value={address}
+          onChange={inputHandler}
+        />
       </div>
       <div className="conditionTags">
         <label htmlFor="condition">篩選類別</label>
@@ -73,7 +94,7 @@ const Form = ({ showContent, setShowContent }) => {
           治安
         </button>
       </div>
-      <button className="submit" type="submit" onClick={submitHandler}>
+      <button className="submit" type="submit">
         查詢
       </button>
     </form>
