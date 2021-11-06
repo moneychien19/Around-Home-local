@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ResConfig(AppConfig):
+class EcoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'res'
+    name = 'eco'

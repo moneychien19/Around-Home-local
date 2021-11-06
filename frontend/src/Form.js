@@ -49,7 +49,7 @@ const Form = ({ showContent, setShowContent, lat, setLat, lng, setLng }) => {
     );
 
     // post lat and lng to backend
-    fetch("http://localhost:8000/api/theft", {
+    fetch("http://localhost:8000/api/safety/theft", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,9 +59,13 @@ const Form = ({ showContent, setShowContent, lat, setLat, lng, setLng }) => {
         longitude: lng,
       }),
     })
-      .then(() => {
-        console.log("post request");
+      .then(res => {
+        if(!res.ok) {
+          throw Error('could not fetch theft data');
+        }
+        return res.json();
       })
+      .then(data => console.log(data))
       .catch((err) => {
         setError(err);
       });

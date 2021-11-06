@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from res.models import Accident, Theft
-from res.serializers import AccidentSerializer
+from safety.models import Accident, Theft
+from safety.serializers import AccidentSerializer
 
 import math
 
