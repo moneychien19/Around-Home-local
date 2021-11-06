@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Form = ({ showContent, setShowContent, setLat, setLng }) => {
+const Form = ({ showContent, setShowContent, lat, setLat, lng, setLng }) => {
   let [address, setAddress] = useState("");
   let [url, setUrl] = useState("");
   const [error, setError] = useState(null);
@@ -38,15 +38,33 @@ const Form = ({ showContent, setShowContent, setLat, setLng }) => {
     }
   };
 
-  // when submitting, set the url of Google map API
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(showContent, address);
+    // console.log(showContent, address);
+    // set the url of Google map API
     setUrl(
       "https://maps.googleapis.com/maps/api/geocode/json?address=" +
         address +
         "&key=AIzaSyAZiSDS9dGBypZ47A4HrwPZf-fMdJ66faQ"
     );
+
+    // post lat and lng to backend
+    fetch("http://localhost:8000/api/theft", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        latitude: lat,
+        longitude: lng,
+      }),
+    })
+      .then(() => {
+        console.log("post request");
+      })
+      .catch((err) => {
+        setError(err);
+      });
   };
 
   // when the url changes, fetch the latitude and longitude of the address
@@ -67,6 +85,7 @@ const Form = ({ showContent, setShowContent, setLat, setLng }) => {
       })
       .catch((err) => {
         setError(err);
+        console.log(err);
       });
   }, [url]);
 

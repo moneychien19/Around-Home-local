@@ -29,8 +29,10 @@ function App() {
       <Form
         showContent={showContent}
         setShowContent={setShowContent}
+        lat={lat}
         setLat={setLat}
         setLng={setLng}
+        lng={lng}
       />
       {showContent[0] ? <Environment /> : null}
 
