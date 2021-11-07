@@ -14,25 +14,29 @@ function App() {
   let [lat, setLat] = useState(25.014947);
   let [lng, setLng] = useState(121.535549);
 
-  // example of fetching
-  const { data, loading, error } = useFetch("https://v2.jokeapi.dev/joke/Any");
-  if (error) {
-    console.log(error);
-  }
+  // data fetching
+  let [theftRowData, setTheftRowData] = useState({
+    自行車竊盜: 0,
+    機車竊盜: 0,
+    汽車竊盜: 0,
+    住宅竊盜: 0,
+    強盜: 0,
+    搶奪: 0,
+    交通事故: 0,
+  });
+  let [accidentRowData, setAccidentRowData] = useState({ 交通事故: 0 });
 
   return (
     <div className="App">
-      {/* example of fetching */}
-      {/* <h1>{data?.setup}</h1>
-      <h2>{data?.delivery}</h2> */}
-
       <Form
         showContent={showContent}
         setShowContent={setShowContent}
         lat={lat}
         setLat={setLat}
-        setLng={setLng}
         lng={lng}
+        setLng={setLng}
+        setTheftRowData={setTheftRowData}
+        setAccidentRowData={setAccidentRowData}
       />
       {showContent[0] ? <Environment /> : null}
 
@@ -43,7 +47,10 @@ function App() {
               <Eco />
             </div>
             <div className="right">
-              <Safety />
+              <Safety
+                theftRowData={theftRowData}
+                accidentRowData={accidentRowData}
+              />
             </div>
           </div>
         ) : (
@@ -62,7 +69,10 @@ function App() {
             <Map lat={lat} lng={lng} />
           </div>
           <div className="right">
-            <Safety />
+            <Safety
+              theftRowData={theftRowData}
+              accidentRowData={accidentRowData}
+            />
           </div>
         </div>
       ) : null}

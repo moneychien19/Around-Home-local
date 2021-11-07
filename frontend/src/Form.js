@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Form = ({ showContent, setShowContent, lat, setLat, lng, setLng }) => {
+const Form = ({
+  showContent,
+  setShowContent,
+  lat,
+  setLat,
+  lng,
+  setLng,
+  setTheftRowData,
+  setAccidentRowData,
+}) => {
   let [address, setAddress] = useState("");
   let [url, setUrl] = useState("");
   const [error, setError] = useState(null);
@@ -48,8 +57,8 @@ const Form = ({ showContent, setShowContent, lat, setLat, lng, setLng }) => {
         "&key=AIzaSyAZiSDS9dGBypZ47A4HrwPZf-fMdJ66faQ"
     );
 
-    // post lat and lng to backend
-    fetch("http://localhost:8000/api/safety/theft", {
+    // get "safety" data
+    fetch("http://localhost:8000/api/safety%20theft", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,13 +68,54 @@ const Form = ({ showContent, setShowContent, lat, setLat, lng, setLng }) => {
         longitude: lng,
       }),
     })
-      .then(res => {
-        if(!res.ok) {
-          throw Error('could not fetch theft data');
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("could not fetch theft data");
         }
         return res.json();
       })
-      .then(data => console.log(data))
+      .then((data) => {
+        let tempTheft = {
+          自行車竊盜: 0,
+          機車竊盜: 0,
+          汽車竊盜: 0,
+          住宅竊盜: 0,
+          強盜: 0,
+          搶奪: 0,
+        };
+        for (let i = 0; i < data.length; i++) {
+          tempTheft[data[i]["theft_type"]] += 1;
+        }
+        setTheftRowData(tempTheft);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+    fetch("http://localhost:8000/api/safety%20accident", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        latitude: lat,
+        longitude: lng,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("could not fetch accident data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        let tempAccident = { 交通事故: data.length };
+        // console.log(data);
+        // let tempCnt = data.length;
+        // tempSafety.update(交通事故: tempCnt)
+        // tempSafety["交通事故"] = tempCnt;
+        // setSafetyRowData(tempSafety);
+        setAccidentRowData(tempAccident);
+      })
       .catch((err) => {
         setError(err);
       });

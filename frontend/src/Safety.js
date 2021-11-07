@@ -1,6 +1,6 @@
 import React from "react";
 
-const Safety = () => {
+const Safety = ({ theftRowData, accidentRowData }) => {
   let safetyData = [
     ["自行車竊案", "3件"],
     ["機車竊案", "5件"],
@@ -18,13 +18,16 @@ const Safety = () => {
       </div>
       <div className="table">
         <table>
-          {safetyData.map((aRow) => (
+          {Object.keys(theftRowData).map((aRowKey) => (
             <tr>
-              {aRow.map((anItem) => (
-                <td>{anItem}</td>
-              ))}
+              <td>{aRowKey}</td>
+              <td>{theftRowData[aRowKey]}</td>
             </tr>
           ))}
+          <tr>
+            <td>交通事故</td>
+            <td>{accidentRowData["交通事故"]}</td>
+          </tr>
         </table>
       </div>
     </div>
