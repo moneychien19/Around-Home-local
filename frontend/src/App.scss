@@ -14,7 +14,7 @@ div#root {
     border-radius: 1.5rem;
     padding: 1rem;
     width: 60vw;
-    height: 25vh;
+    height: 33vh;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -64,6 +64,24 @@ div#root {
         color: white;
         border: #eb9c23 solid 2px;
         cursor: pointer;
+      }
+    }
+    div.range {
+      display: flex;
+      position: absolute;
+      left: 7rem;
+      top: 8.3rem;
+      label {
+        font-size: 1.25rem;
+        padding-right: 1rem;
+        // padding-top: 0.2rem;
+      }
+      select {
+        font-size: 1.1rem;
+        border-radius: 0.5rem;
+        padding: 0.2rem 0.4rem;
+        border: #c6c6c6 solid 2px;
+        margin-right: 3rem;
       }
     }
     button.submit {

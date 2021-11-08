@@ -15,6 +15,9 @@ const Form = ({
   let [url, setUrl] = useState("");
   const [error, setError] = useState(null);
 
+  let [distanceRange, setDistanceRange] = useState("d500");
+  let [timeRange, setTimeRange] = useState("t1");
+
   const inputHandler = (e) => {
     setAddress(e.target.value);
   };
@@ -55,6 +58,15 @@ const Form = ({
       "https://maps.googleapis.com/maps/api/geocode/json?address=" +
         address +
         "&key=AIzaSyAZiSDS9dGBypZ47A4HrwPZf-fMdJ66faQ"
+    );
+
+    // set the range data
+    setDistanceRange(
+      e.target.parentElement.querySelector("div.range select#distanceRange")
+        .value
+    );
+    setTimeRange(
+      e.target.parentElement.querySelector("div.range select#timeRange").value
     );
 
     // get "safety" data
@@ -109,11 +121,6 @@ const Form = ({
       })
       .then((data) => {
         let tempAccident = { 交通事故: data.length };
-        // console.log(data);
-        // let tempCnt = data.length;
-        // tempSafety.update(交通事故: tempCnt)
-        // tempSafety["交通事故"] = tempCnt;
-        // setSafetyRowData(tempSafety);
         setAccidentRowData(tempAccident);
       })
       .catch((err) => {
@@ -166,6 +173,22 @@ const Form = ({
         <button className="condition" onClick={onclickSafety}>
           治安
         </button>
+      </div>
+      <div className="range">
+        <label htmlFor="distanceRange">距離範圍</label>
+        <select name="distanceRange" id="distanceRange">
+          <option value="d500">五百公尺內</option>
+          <option value="d1000">一公里內</option>
+          <option value="d2000">兩公里內</option>
+          <option value="d5000">五公里內</option>
+        </select>
+        <label htmlFor="timeRange">時間範圍</label>
+        <select name="timeRange" id="timeRange">
+          <option value="t1">一個月內</option>
+          <option value="t3">三個月內</option>
+          <option value="t6">半年內</option>
+          <option value="t12">一年內</option>
+        </select>
       </div>
       <button className="submit" type="submit">
         查詢

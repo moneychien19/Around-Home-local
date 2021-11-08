@@ -21,12 +21,12 @@ const Safety = ({ theftRowData, accidentRowData }) => {
           {Object.keys(theftRowData).map((aRowKey) => (
             <tr>
               <td>{aRowKey}</td>
-              <td>{theftRowData[aRowKey]}</td>
+              <td>{theftRowData[aRowKey]} 件</td>
             </tr>
           ))}
           <tr>
             <td>交通事故</td>
-            <td>{accidentRowData["交通事故"]}</td>
+            <td>{accidentRowData["交通事故"]} 件</td>
           </tr>
         </table>
       </div>

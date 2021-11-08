@@ -24,7 +24,7 @@ div#root form.search {
   border-radius: 1.5rem;
   padding: 1rem;
   width: 60vw;
-  height: 25vh;
+  height: 33vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -89,6 +89,28 @@ div#root form.search div.conditionTags button.checked {
   color: white;
   border: #eb9c23 solid 2px;
   cursor: pointer;
+}
+
+div#root form.search div.range {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  left: 7rem;
+  top: 8.3rem;
+}
+
+div#root form.search div.range label {
+  font-size: 1.25rem;
+  padding-right: 1rem;
+}
+
+div#root form.search div.range select {
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.4rem;
+  border: #c6c6c6 solid 2px;
+  margin-right: 3rem;
 }
 
 div#root form.search button.submit {

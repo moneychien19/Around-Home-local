@@ -22,7 +22,6 @@ function App() {
     住宅竊盜: 0,
     強盜: 0,
     搶奪: 0,
-    交通事故: 0,
   });
   let [accidentRowData, setAccidentRowData] = useState({ 交通事故: 0 });
 
