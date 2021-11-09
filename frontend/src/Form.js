@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API_KEY from "./key";
 
 const Form = ({
   showContent,
@@ -57,7 +58,8 @@ const Form = ({
     setUrl(
       "https://maps.googleapis.com/maps/api/geocode/json?address=" +
         address +
-        "&key=AIzaSyAZiSDS9dGBypZ47A4HrwPZf-fMdJ66faQ"
+        "&key=" +
+        API_KEY
     );
 
     // set the range data
