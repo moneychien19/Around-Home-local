@@ -5,15 +5,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Type the following command in CMD
 
 ```
-yarn start
 yarn
+yarn start
 ```
 
-and the app will run the [http://localhost:3000] for you.
+and the app will run the [local host in port 3000](http://localhost:3000) for you.
 
 ## API Key Security
 
-You have to create a `key.js` file under the "/src" folder, and write the following code:
+You have to create a `key.js` file under the `/src` folder, and write the following code:
 
 ```
 const API_KEY = {YOUR_GOOGLE_API_KEY};
