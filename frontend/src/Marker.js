@@ -1,5 +1,5 @@
 import React from "react";
-import "./Marker.css";
+import "./Marker_Pin.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 

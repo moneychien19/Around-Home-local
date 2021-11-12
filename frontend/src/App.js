@@ -6,7 +6,6 @@ import Environment from "./Environment";
 import Eco from "./Eco";
 import Safety from "./Safety";
 import Map from "./Map";
-import useFetch from "./useFetch";
 
 function App() {
   // determine the show block
@@ -23,7 +22,9 @@ function App() {
     強盜: 0,
     搶奪: 0,
   });
+  let [theftLoc, setTheftLoc] = useState([]);
   let [accidentRowData, setAccidentRowData] = useState({ 交通事故: 0 });
+  let [accidentLoc, setAccidentLoc] = useState([]);
 
   return (
     <div className="App">
@@ -36,6 +37,8 @@ function App() {
         setLng={setLng}
         setTheftRowData={setTheftRowData}
         setAccidentRowData={setAccidentRowData}
+        setTheftLoc={setTheftLoc}
+        setAccidentLoc={setAccidentLoc}
       />
       {showContent[0] ? <Environment /> : null}
 
@@ -55,7 +58,12 @@ function App() {
         ) : (
           <div className="twoSide">
             <div className="left">
-              <Map lat={lat} lng={lng} />
+              <Map
+                lat={lat}
+                lng={lng}
+                theftLoc={theftLoc}
+                accidentLoc={accidentLoc}
+              />
             </div>
             <div className="right">
               <Eco />
@@ -65,7 +73,12 @@ function App() {
       ) : showContent[2] ? (
         <div className="twoSide">
           <div className="left">
-            <Map lat={lat} lng={lng} />
+            <Map
+              lat={lat}
+              lng={lng}
+              theftLoc={theftLoc}
+              accidentLoc={accidentLoc}
+            />
           </div>
           <div className="right">
             <Safety
@@ -77,7 +90,12 @@ function App() {
       ) : null}
       {showContent[1] === showContent[2] ? (
         <div className="whole">
-          <Map lat={lat} lng={lng} />
+          <Map
+            lat={lat}
+            lng={lng}
+            theftLoc={theftLoc}
+            accidentLoc={accidentLoc}
+          />
         </div>
       ) : null}
     </div>

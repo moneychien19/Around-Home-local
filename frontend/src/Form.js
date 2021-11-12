@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "./key";
+import fetchTheft from "./fetchTheft";
+import fetchAccident from "./fetchAccident";
 
 const Form = ({
   showContent,
@@ -11,6 +13,8 @@ const Form = ({
   setLng,
   setTheftRowData,
   setAccidentRowData,
+  setTheftLoc,
+  setAccidentLoc,
 }) => {
   let [address, setAddress] = useState("");
   let [url, setUrl] = useState("");
@@ -53,7 +57,7 @@ const Form = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log(showContent, address);
+
     // set the url of Google map API
     setUrl(
       "https://maps.googleapis.com/maps/api/geocode/json?address=" +
@@ -70,64 +74,6 @@ const Form = ({
     setTimeRange(
       e.target.parentElement.querySelector("div.range select#timeRange").value
     );
-
-    // get "safety" data
-    fetch("http://localhost:8000/api/safety%20theft", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        latitude: lat,
-        longitude: lng,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("could not fetch theft data");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        let tempTheft = {
-          自行車竊盜: 0,
-          機車竊盜: 0,
-          汽車竊盜: 0,
-          住宅竊盜: 0,
-          強盜: 0,
-          搶奪: 0,
-        };
-        for (let i = 0; i < data.length; i++) {
-          tempTheft[data[i]["theft_type"]] += 1;
-        }
-        setTheftRowData(tempTheft);
-      })
-      .catch((err) => {
-        setError(err);
-      });
-    fetch("http://localhost:8000/api/safety%20accident", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        latitude: lat,
-        longitude: lng,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("could not fetch accident data");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        let tempAccident = { 交通事故: data.length };
-        setAccidentRowData(tempAccident);
-      })
-      .catch((err) => {
-        setError(err);
-      });
   };
 
   // when the url changes, fetch the latitude and longitude of the address
@@ -151,6 +97,13 @@ const Form = ({
         console.log(err);
       });
   }, [url]);
+
+  // when the address changes, call API
+  useEffect(() => {
+    // get "safety" data and set
+    fetchTheft(lat, lng, setTheftRowData, setTheftLoc);
+    fetchAccident(lat, lng, setAccidentRowData, setAccidentLoc);
+  }, [lat, lng]);
 
   return (
     <form className="search" onSubmit={submitHandler}>
@@ -179,17 +132,17 @@ const Form = ({
       <div className="range">
         <label htmlFor="distanceRange">距離範圍</label>
         <select name="distanceRange" id="distanceRange">
-          <option value="d500">五百公尺內</option>
-          <option value="d1000">一公里內</option>
-          <option value="d2000">兩公里內</option>
-          <option value="d5000">五公里內</option>
+          <option value="500">五百公尺內</option>
+          <option value="1000">一公里內</option>
+          <option value="2000">兩公里內</option>
+          <option value="5000">五公里內</option>
         </select>
         <label htmlFor="timeRange">時間範圍</label>
         <select name="timeRange" id="timeRange">
-          <option value="t1">一個月內</option>
-          <option value="t3">三個月內</option>
-          <option value="t6">半年內</option>
-          <option value="t12">一年內</option>
+          <option value="1">一個月內</option>
+          <option value="3">三個月內</option>
+          <option value="6">半年內</option>
+          <option value="12">一年內</option>
         </select>
       </div>
       <button className="submit" type="submit">
