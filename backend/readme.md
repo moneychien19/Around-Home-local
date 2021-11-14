@@ -1,8 +1,14 @@
 ## Contents
+- [Todo list](#Todo-list)
 - [How to run the backend server](#How-to-run-the-backend-server)
 - [APIs](#APIs)
-- [Todo list](#Todo-list)
 - [Convert address to coordinate in python](#Convert-address-to-coordinate-in-python)
+
+## Todo list
+- [x] Add remaining tables
+- [x] Add more accident data
+- [x] Perhaps add a date range filter? 
+- [ ] Update AQI dataset dynamically (currently the observation was made at 2021-11-09 16:00)
 
 ## How to run the backend server
 
@@ -53,10 +59,10 @@ Return accidents that happened from January 2020 to December 2020 within the que
 POST
 
 #### Argument:
-- `latitude`(required) 
-- `longitude`(required)
-- `distance`(optional, unit: meter): the default value is 1000 meters.
-- `month`(optional): the default value is 6 months. 
+- `latitude` (required) 
+- `longitude` (required)
+- `distance` (optional, unit: meter): the default value is 1000 meters.
+- `month` (optional): the default value is 6 months. 
 
 #### Response
 - `aid` accident id
@@ -92,10 +98,10 @@ Return thefts within the query distance and during the time specified.
 POST
 
 #### Argument
-- `latitude`(required) 
-- `longitude`(required)
-- `distance`(optional, unit: meter): the default value is 1000 meters. 
-- `month`(optional): the default value is 6 months.
+- `latitude` (required) 
+- `longitude` (required)
+- `distance` (optional, unit: meter): the default value is 1000 meters. 
+- `month` (optional): the default value is 6 months.
 
 #### Response
 - `theft_add`
@@ -117,10 +123,76 @@ POST
 }
 ```
 
+### 3. Air Quality
+
+#### Description
+Return AQI from the nearest observatory.  
+
+![](https://i.imgur.com/s84fOPO.png)
+
+#### Path
+/api/environment/airquality
+
+#### Method
+POST
+
+#### Argument
+- `latitude` (required) 
+- `longitude` (required)
+
+#### Response
+- `aqi`
+- `status` chinese description of AQI
+- `scounty` the county where the observatory is located
+- `sname` the location of the observatory
+- `published_time` when the observation was published 
+
+#### Response example
+```    
+{
+    "aqi": 40,
+    "status": "良好",
+    "scounty": "新北市",
+    "sname": "汐止",
+    "published_time": "2021-11-09T16:00:00"
+}
+```
+
+### 5. Waste Disposal
+
+#### Description
+Return waste disposals within the query distance.
+
+#### Path
+/api/environment/waste-disposal
+
+#### Method
+POST
+
+#### Argument:
+- `latitude` (required) 
+- `longitude` (required)
+- `distance` (optional, unit: meter): the default value is 1000 meters.
+
+#### Response
+- `wname` waste disposal name
+- `wadd` waste disposal address
+- `aid` 
+- `wmethod`
+- `latitude`
+- `longitude`
+
+#### Response example
+```
+{
+    "wname": "永清工程行",
+    "wadd": "臺北市南港區成福路一二一巷三○號一樓",
+    "aid": 153,
+    "wmethod": null,
+    "latitude": 25.040736,
+    "longitude": 121.587888
+}
+```
+
 ## Convert address to coordinate in python
 Reference: [googlemaps](https://github.com/googlemaps/google-maps-services-python) package
-
-## Todo list
-- [x] Add remaining tables
-- [x] Add more accident data
-- [x] Perhaps add a date range filter? 

@@ -30,7 +30,6 @@ def around_house(lat1, lng1, lat2, lng2, threshold):
 def get_objects_around(objects, distance, latitude, longitude):
     objects_around = [obj for obj in objects
                       if around_house(latitude, longitude, obj['latitude'], obj['longitude'], distance)]
-    
     return objects_around
 
 
@@ -38,6 +37,20 @@ def get_objects_lately(objects, time_start, time_end):
     objects_lately = [obj for obj in objects
                       if time_start <= obj['date'] <= time_end]
     return objects_lately
+
+
+def get_closest_object(objects, latitude, longitude):
+    min_distance = -1
+    closest_object = None
+
+    for obj in objects:
+        dis = get_distance_from_lat_lng(latitude, longitude, 
+                                        float(obj['latitude']), float(obj['longitude']))
+        if min_distance == -1 or dis < min_distance:
+            min_distance = dis
+            closest_object = obj
+
+    return closest_object
 
 
 def get_lat_lng(request):
