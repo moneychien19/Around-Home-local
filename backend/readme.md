@@ -9,7 +9,7 @@
 ### Database
 1. Open pgadmin.
 2. Create a database called `AroundHome` (or whatever name you like, but remember to change the database name in .env file)
-3. Restore the database with `AroundHome_backup.sql`, which can be found in `backend/around_home_backend/data` folder.
+3. Restore the database with `Around_Home_backup_custom.sql`, which can be found in `backend/around_home_backend/data` folder.
 
 ![](https://i.imgur.com/IDnynRR.jpg)
 ![](https://i.imgur.com/3GZX8bg.jpg)
@@ -44,10 +44,10 @@ python manage.py runserver
 ### 1. Accidents
 
 #### Description
-Return A2 accidents that happened from January 2020 to June 2020 within the query distance.
+Return accidents that happened from January 2020 to December 2020 within the query distance and during the time specified.
 
 #### Path
-/api/accidents
+/api/safety/accident
 
 #### Method
 POST
@@ -55,37 +55,38 @@ POST
 #### Argument:
 - `latitude`(required) 
 - `longitude`(required)
-- `distance`(optional, unit: meter): the default value is 1000 meters. 
+- `distance`(optional, unit: meter): the default value is 1000 meters.
+- `month`(optional): the default value is 6 months. 
 
 #### Response
-- `accident_id`
-- `accident_date`
-- `accident_address`
-- `casualties`
-- `vehicle_type`
+- `aid` accident id
+- `aadd` accident address
 - `longitude` where the accident happened
 - `latitude` where the accident happened
+- `injured`
+- `death`
+- `date`
 
 #### Response example
 ```
 {
-    "accident_id": 173,
-    "accident_date": "109年01月29日 22時45分00秒",
-    "accident_address": "臺北市大安區和平東路2段 / 臺北市大安區建國南路2段",
-    "casualties": "死亡1;受傷0",
-    "vehicle_type": "自用-小客車;普通重型-機車",
-    "longitude": 121.537907,
-    "latitude": 25.025667
+    "aid": 965,
+    "aadd": "新北市板橋區新北市板橋區文化路1段與府後街",
+    "longitude": 121.465128,
+    "latitude": 25.018586,
+    "injured": 1,
+    "death": 1,
+    "date": "2020-07-05T08:34:00"
 }
 ```
 
 ### 2. Thefts
 
 #### Description
-Return thefts within the query distance. 
+Return thefts within the query distance and during the time specified. 
 
 #### Path
-/api/theft
+/api/safety/theft
 
 #### Method
 POST
@@ -94,26 +95,25 @@ POST
 - `latitude`(required) 
 - `longitude`(required)
 - `distance`(optional, unit: meter): the default value is 1000 meters. 
+- `month`(optional): the default value is 6 months.
 
 #### Response
-- `theft_id`
-- `theft_type` could be `自行車竊盜`, `機車竊盜`, `汽車竊盜`, `住宅竊盜`, `強盜`, or `搶奪`
-- `theft_date`
-- `theft_time`
-- `theft_address`
+- `theft_add`
 - `longitude` where the theft happened
 - `latitude` where the theft happened
+- `date`
+- `theft_id`
+- `theft_type` could be `自行車竊盜`, `機車竊盜`, `汽車竊盜`, `住宅竊盜`, `強盜`, or `搶奪`
 
 #### Response example
 ```    
 {
-    "theft_id": "burglary-262",
-    "theft_type": "住宅竊盜",
-    "theft_date": "1040510",
-    "theft_time": "04~06",
-    "theft_address": "臺北市大安區虎嘯里樂業街15巷1~30號",
-    "longitude": 121.5500626,
-    "latitude": 25.0240174
+    "theft_add": "臺北市大安區仁慈里信義路4段31~60號",
+    "latitude": 25.0334448,
+    "longitude": 121.5442815,
+    "theft_id": 2305,
+    "date": "2021-07-10T00:00:00",
+    "theft_type": "自行車竊盜"
 }
 ```
 
@@ -121,6 +121,6 @@ POST
 Reference: [googlemaps](https://github.com/googlemaps/google-maps-services-python) package
 
 ## Todo list
-- [ ] Add remaining tables
-- [ ] Add more accident data
-- [ ] Perhaps add a date range filter? 
+- [x] Add remaining tables
+- [x] Add more accident data
+- [x] Perhaps add a date range filter? 
