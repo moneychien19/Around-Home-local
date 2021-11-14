@@ -10,8 +10,12 @@ import Map from "./Map";
 function App() {
   // determine the show block
   let [showContent, setShowContent] = useState([false, false, false]);
+
+  // define the fetching variables
   let [lat, setLat] = useState(25.014947);
   let [lng, setLng] = useState(121.535549);
+  let [distanceRange, setDistanceRange] = useState("1000");
+  let [timeRange, setTimeRange] = useState("6");
 
   // data fetching
   let [theftRowData, setTheftRowData] = useState({
@@ -26,77 +30,65 @@ function App() {
   let [accidentRowData, setAccidentRowData] = useState({ 交通事故: 0 });
   let [accidentLoc, setAccidentLoc] = useState([]);
 
+  // define views
+  let formView = (
+    <Form
+      showContent={showContent}
+      setShowContent={setShowContent}
+      lat={lat}
+      setLat={setLat}
+      lng={lng}
+      setLng={setLng}
+      distanceRange={distanceRange}
+      setDistanceRange={setDistanceRange}
+      timeRange={timeRange}
+      setTimeRange={setTimeRange}
+      setTheftRowData={setTheftRowData}
+      setAccidentRowData={setAccidentRowData}
+      setTheftLoc={setTheftLoc}
+      setAccidentLoc={setAccidentLoc}
+    />
+  );
+  let environmentView = <Environment />;
+  let ecoView = <Eco />;
+  let safetyView = (
+    <Safety
+      theftRowData={theftRowData}
+      accidentRowData={accidentRowData}
+      distanceRange={distanceRange}
+      timeRange={timeRange}
+    />
+  );
+  let mapView = (
+    <Map lat={lat} lng={lng} theftLoc={theftLoc} accidentLoc={accidentLoc} />
+  );
+
   return (
     <div className="App">
-      <Form
-        showContent={showContent}
-        setShowContent={setShowContent}
-        lat={lat}
-        setLat={setLat}
-        lng={lng}
-        setLng={setLng}
-        setTheftRowData={setTheftRowData}
-        setAccidentRowData={setAccidentRowData}
-        setTheftLoc={setTheftLoc}
-        setAccidentLoc={setAccidentLoc}
-      />
-      {showContent[0] ? <Environment /> : null}
+      {formView}
+
+      {showContent[0] ? environmentView : null}
 
       {showContent[1] ? (
         showContent[2] ? (
           <div className="twoSide">
-            <div className="left">
-              <Eco />
-            </div>
-            <div className="right">
-              <Safety
-                theftRowData={theftRowData}
-                accidentRowData={accidentRowData}
-              />
-            </div>
+            <div className="left">{ecoView}</div>
+            <div className="right">{safetyView}</div>
           </div>
         ) : (
           <div className="twoSide">
-            <div className="left">
-              <Map
-                lat={lat}
-                lng={lng}
-                theftLoc={theftLoc}
-                accidentLoc={accidentLoc}
-              />
-            </div>
-            <div className="right">
-              <Eco />
-            </div>
+            <div className="left">{mapView}</div>
+            <div className="right">{ecoView}</div>
           </div>
         )
       ) : showContent[2] ? (
         <div className="twoSide">
-          <div className="left">
-            <Map
-              lat={lat}
-              lng={lng}
-              theftLoc={theftLoc}
-              accidentLoc={accidentLoc}
-            />
-          </div>
-          <div className="right">
-            <Safety
-              theftRowData={theftRowData}
-              accidentRowData={accidentRowData}
-            />
-          </div>
+          <div className="left">{mapView}</div>
+          <div className="right">{safetyView}</div>
         </div>
       ) : null}
       {showContent[1] === showContent[2] ? (
-        <div className="whole">
-          <Map
-            lat={lat}
-            lng={lng}
-            theftLoc={theftLoc}
-            accidentLoc={accidentLoc}
-          />
-        </div>
+        <div className="whole">{mapView}</div>
       ) : null}
     </div>
   );

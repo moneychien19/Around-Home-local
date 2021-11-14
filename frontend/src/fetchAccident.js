@@ -1,5 +1,12 @@
-let fetchAccident = (lat, lng, setAccidentRowData, setAccidentLoc) => {
-  fetch("http://localhost:8000/api/safety%20accident", {
+let fetchAccident = (
+  lat,
+  lng,
+  distance,
+  month,
+  setAccidentRowData,
+  setAccidentLoc
+) => {
+  fetch("http://localhost:8000/api/safety/accident", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -7,6 +14,8 @@ let fetchAccident = (lat, lng, setAccidentRowData, setAccidentLoc) => {
     body: JSON.stringify({
       latitude: lat,
       longitude: lng,
+      distance: Number(distance),
+      month: Number(month),
     }),
   })
     .then((res) => {

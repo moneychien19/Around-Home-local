@@ -11,6 +11,10 @@ const Form = ({
   setLat,
   lng,
   setLng,
+  distanceRange,
+  setDistanceRange,
+  timeRange,
+  setTimeRange,
   setTheftRowData,
   setAccidentRowData,
   setTheftLoc,
@@ -19,9 +23,6 @@ const Form = ({
   let [address, setAddress] = useState("");
   let [url, setUrl] = useState("");
   const [error, setError] = useState(null);
-
-  let [distanceRange, setDistanceRange] = useState("d500");
-  let [timeRange, setTimeRange] = useState("t1");
 
   const inputHandler = (e) => {
     setAddress(e.target.value);
@@ -98,12 +99,26 @@ const Form = ({
       });
   }, [url]);
 
-  // when the address changes, call API
+  // when the address or ranges changes, call API
   useEffect(() => {
     // get "safety" data and set
-    fetchTheft(lat, lng, setTheftRowData, setTheftLoc);
-    fetchAccident(lat, lng, setAccidentRowData, setAccidentLoc);
-  }, [lat, lng]);
+    fetchTheft(
+      lat,
+      lng,
+      distanceRange,
+      timeRange,
+      setTheftRowData,
+      setTheftLoc
+    );
+    fetchAccident(
+      lat,
+      lng,
+      distanceRange,
+      timeRange,
+      setAccidentRowData,
+      setAccidentLoc
+    );
+  }, [lat, lng, timeRange, distanceRange]);
 
   return (
     <form className="search" onSubmit={submitHandler}>
@@ -132,16 +147,16 @@ const Form = ({
       <div className="range">
         <label htmlFor="distanceRange">距離範圍</label>
         <select name="distanceRange" id="distanceRange">
-          <option value="500">五百公尺內</option>
           <option value="1000">一公里內</option>
+          <option value="500">五百公尺內</option>
           <option value="2000">兩公里內</option>
           <option value="5000">五公里內</option>
         </select>
         <label htmlFor="timeRange">時間範圍</label>
         <select name="timeRange" id="timeRange">
+          <option value="6">半年內</option>
           <option value="1">一個月內</option>
           <option value="3">三個月內</option>
-          <option value="6">半年內</option>
           <option value="12">一年內</option>
         </select>
       </div>

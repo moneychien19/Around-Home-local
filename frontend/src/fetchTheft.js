@@ -1,5 +1,5 @@
-let fetchTheft = (lat, lng, setTheftRowData, setTheftLoc) => {
-  fetch("http://localhost:8000/api/safety%20theft", {
+let fetchTheft = (lat, lng, distance, month, setTheftRowData, setTheftLoc) => {
+  fetch("http://localhost:8000/api/safety/theft", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -7,6 +7,8 @@ let fetchTheft = (lat, lng, setTheftRowData, setTheftLoc) => {
     body: JSON.stringify({
       latitude: lat,
       longitude: lng,
+      distance: Number(distance),
+      month: Number(month),
     }),
   })
     .then((res) => {
