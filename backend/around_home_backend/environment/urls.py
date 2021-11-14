@@ -1,4 +1,8 @@
 from django.conf.urls import url
-from eco import views
+from environment import views
 
-urlpatterns = []
+urlpatterns = [
+    url('airquality', views.air_quality),
+    url('uv', views.uv),
+    url('waste-disposal', views.disposal_list)
+]
