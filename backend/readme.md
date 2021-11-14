@@ -15,7 +15,7 @@
 ### Database
 1. Open pgadmin.
 2. Create a database called `AroundHome` (or whatever name you like, but remember to change the database name in .env file)
-3. Restore the database with `Around_Home_backup_custom.sql`, which can be found in `backend/around_home_backend/data` folder.
+3. Restore the database with `AroundHome_backup.sql`, which can be found in `backend/around_home_backend/data` folder.
 
 ![](https://i.imgur.com/IDnynRR.jpg)
 ![](https://i.imgur.com/3GZX8bg.jpg)
@@ -155,6 +155,37 @@ POST
     "scounty": "新北市",
     "sname": "汐止",
     "published_time": "2021-11-09T16:00:00"
+}
+```
+
+### 4. UV
+
+#### Description
+Find the nearest observatory and return UV index from 2021-11-01 to 2021-11-09 at 1 hour interval.  
+
+#### Path
+/api/environment/uv
+
+#### Method
+POST
+
+#### Argument
+- `latitude` (required) 
+- `longitude` (required)
+
+#### Response
+- `uvi` UV index
+- `utime`
+- `county` the county where the observatory is located
+- `site_name` the location of the observatory
+
+#### Response example
+```    
+{
+    "uvi": 3.94,
+    "utime": "2021-11-09T11:00:00",
+    "county": "臺北市",
+    "site_name": "臺北"
 }
 ```
 

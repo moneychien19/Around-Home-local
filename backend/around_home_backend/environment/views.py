@@ -6,11 +6,8 @@ from rest_framework.response import Response
 from environment.models import AirQuality, AirSite, UV, UVSite, WasteDisposal
 from utils import utils
 
-def get_observation(site_id, observations):
-    for obs in observations:
-        if obs['site_id'] == site_id:
-            return obs
-    return None
+def get_observation_list(site_id, observations):
+    return [obs for obs in observations if obs['site_id'] == site_id]
 
 
 @api_view(['POST'])
@@ -23,17 +20,17 @@ def air_quality(request):
         longitude, latitude = response
 
     closest_site = utils.get_closest_object(AirSite.objects.values(), latitude, longitude)
-    obs = get_observation(closest_site['site_id'], AirQuality.objects.values())
+    obs_list = get_observation_list(closest_site['site_id'], AirQuality.objects.values())
 
-    if obs is None:
+    if len(obs_list) == 0:
         return Response('Cannot find observation', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         quality = {
-            'aqi': obs['aqi'],
-            'status': obs['status'],
+            'aqi': obs_list[0]['aqi'],
+            'status': obs_list[0]['status'],
             'scounty': closest_site['scounty'],
             'sname': closest_site['sname'],
-            'published_time': obs['published_time']
+            'published_time': obs_list[0]['published_time']
         }
         return Response(quality, status=status.HTTP_200_OK)
 
@@ -48,19 +45,18 @@ def uv(request):
         longitude, latitude = response
 
     closest_site = utils.get_closest_object(UVSite.objects.values(), latitude, longitude)
-    obs = get_observation(closest_site['site_id'], UV.objects.values())
+    obs_list = get_observation_list(closest_site['site_id'], UV.objects.values().order_by('utime'))
 
-    if obs is None:
+    if len(obs_list) == 0:
         return Response('Cannot find closest observation', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
-        quality = {
+        uvi_list = [{
             'uvi': obs['uvi'],
             'utime': obs['utime'],
             'county': closest_site['county'],
-            'agency': closest_site['agency'],
             'site_name': closest_site['site_name']
-        }
-        return Response(quality, status=status.HTTP_200_OK)
+        } for obs in obs_list]
+        return Response(uvi_list, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

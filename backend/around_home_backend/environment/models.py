@@ -41,9 +41,8 @@ class UV(models.Model):
 
 class UVSite(models.Model):
     county = models.CharField(max_length=5)
-    agency = models.CharField(max_length=15)
     site_name = models.CharField(max_length=5)
-    site_id = models.IntegerField(primary_key=True, db_column='uid')
+    site_id = models.IntegerField(primary_key=True)
     latitude = models.FloatField(db_column='ulat')
     longitude = models.FloatField(db_column='ulon')
 
