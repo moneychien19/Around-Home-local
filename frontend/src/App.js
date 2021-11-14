@@ -18,6 +18,8 @@ function App() {
   let [timeRange, setTimeRange] = useState("6");
 
   // data fetching
+  let [AQIRowData, setAQIRowData] = useState(["空氣品質指標AQI", "", "", ""]);
+  let [UVRowData, setUVRowData] = useState(["紫外線指數", "", "", ""]);
   let [theftRowData, setTheftRowData] = useState({
     自行車竊盜: 0,
     機車竊盜: 0,
@@ -43,13 +45,17 @@ function App() {
       setDistanceRange={setDistanceRange}
       timeRange={timeRange}
       setTimeRange={setTimeRange}
+      setAQIRowData={setAQIRowData}
+      setUVRowData={setUVRowData}
       setTheftRowData={setTheftRowData}
       setAccidentRowData={setAccidentRowData}
       setTheftLoc={setTheftLoc}
       setAccidentLoc={setAccidentLoc}
     />
   );
-  let environmentView = <Environment />;
+  let environmentView = (
+    <Environment AQIRowData={AQIRowData} UVRowData={UVRowData} />
+  );
   let ecoView = <Eco />;
   let safetyView = (
     <Safety
@@ -60,7 +66,13 @@ function App() {
     />
   );
   let mapView = (
-    <Map lat={lat} lng={lng} theftLoc={theftLoc} accidentLoc={accidentLoc} />
+    <Map
+      lat={lat}
+      lng={lng}
+      theftLoc={theftLoc}
+      accidentLoc={accidentLoc}
+      distanceRange={distanceRange}
+    />
   );
 
   return (

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import GoogleMapReact from "google-map-react";
 import API_KEY from "./key";
 import Marker from "./Marker";
 import Pin from "./Pin";
 
 // Map
-function Map({ lat, lng, theftLoc, accidentLoc }) {
-  let mapZoom = 15;
+function Map({ lat, lng, theftLoc, accidentLoc, distanceRange }) {
   let apiKey = API_KEY;
 
   return (
@@ -15,7 +14,7 @@ function Map({ lat, lng, theftLoc, accidentLoc }) {
         <GoogleMapReact
           bootstrapURLKeys={{ key: apiKey }}
           center={{ lat: lat, lng: lng }}
-          defaultZoom={mapZoom}
+          zoom={Number(distanceRange) >= 2000 ? 14 : 16}
         >
           <Marker lat={lat} lng={lng} id="query" />
           {!theftLoc

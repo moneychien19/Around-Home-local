@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "./key";
-import fetchTheft from "./fetchTheft";
-import fetchAccident from "./fetchAccident";
+import { fetchAQI, fetchUV } from "./fetchEnvironment";
+import { fetchTheft, fetchAccident } from "./fetchSafety";
 
 const Form = ({
   showContent,
@@ -15,6 +15,8 @@ const Form = ({
   setDistanceRange,
   timeRange,
   setTimeRange,
+  setAQIRowData,
+  setUVRowData,
   setTheftRowData,
   setAccidentRowData,
   setTheftLoc,
@@ -101,6 +103,10 @@ const Form = ({
 
   // when the address or ranges changes, call API
   useEffect(() => {
+    // get "environment" data and set
+    fetchAQI(lat, lng, setAQIRowData);
+    fetchUV(lat, lng, setUVRowData);
+
     // get "safety" data and set
     fetchTheft(
       lat,
