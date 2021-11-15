@@ -10,9 +10,13 @@
 }
 
 #query {
-  color: darkorange;
+  color: #fda65d;
+}
+
+#ecoPin {
+  color: #3e7c17;
 }
 
 #safetyPin {
-  color: #b22222;
+  color: #b85252;
 }

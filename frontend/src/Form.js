@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "./key";
 import { fetchAQI, fetchUV } from "./fetchEnvironment";
+import { fetchDisposal } from "./fetchEco";
 import { fetchTheft, fetchAccident } from "./fetchSafety";
 
 const Form = ({
@@ -17,6 +18,8 @@ const Form = ({
   setTimeRange,
   setAQIRowData,
   setUVRowData,
+  setDisposalRowData,
+  setDisposalLoc,
   setTheftRowData,
   setAccidentRowData,
   setTheftLoc,
@@ -107,6 +110,9 @@ const Form = ({
     fetchAQI(lat, lng, setAQIRowData);
     fetchUV(lat, lng, setUVRowData);
 
+    // get "eco" data and set
+    fetchDisposal(lat, lng, distanceRange, setDisposalRowData, setDisposalLoc);
+
     // get "safety" data and set
     fetchTheft(
       lat,
@@ -154,9 +160,9 @@ const Form = ({
         <label htmlFor="distanceRange">距離範圍</label>
         <select name="distanceRange" id="distanceRange">
           <option value="1000">一公里內</option>
+          <option value="250">兩百五十公尺內</option>
           <option value="500">五百公尺內</option>
           <option value="2000">兩公里內</option>
-          <option value="5000">五公里內</option>
         </select>
         <label htmlFor="timeRange">時間範圍</label>
         <select name="timeRange" id="timeRange">

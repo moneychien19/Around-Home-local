@@ -45,21 +45,24 @@ let fetchUV = (lat, lng, setUVRowData) => {
     })
     .then((data) => {
       let status = "";
-      if (data["uvi"] <= 2) {
+      let uvi = data[data.length - 1]["uvi"];
+      if (uvi <= 2) {
         status = "低量級";
-      } else if ((data["uvi"] >= 3) & (data["uvi"] <= 5)) {
+      } else if ((uvi >= 3) & (uvi <= 5)) {
         status = "中量級";
-      } else if ((data["uvi"] >= 6) & (data["uvi"] <= 7)) {
+      } else if ((uvi >= 6) & (uvi <= 7)) {
         status = "高量級";
-      } else if ((data["uvi"] >= 8) & (data["uvi"] <= 10)) {
+      } else if ((uvi >= 8) & (uvi <= 10)) {
         status = "過量級";
       } else {
         status = "危量級";
       }
       let tempUV = [
         "紫外線指數",
-        data["county"] + "-" + data["site_name"],
-        data["uvi"],
+        data[data.length - 1]["county"] +
+          "-" +
+          data[data.length - 1]["site_name"],
+        uvi,
         status,
       ];
       setUVRowData(tempUV);

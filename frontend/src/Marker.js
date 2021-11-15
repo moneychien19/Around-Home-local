@@ -8,7 +8,7 @@ const Marker = ({ id }) => {
     <FontAwesomeIcon
       icon={faMapMarkerAlt}
       className="marker"
-      id="query"
+      id={id}
       size="3x"
     />
   );
