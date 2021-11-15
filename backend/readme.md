@@ -48,16 +48,16 @@ python manage.py runserver
 ## APIs
 
 ### API List
-- [/api/safety/accident](#1.Accident)
-- [/api/safety/theft](#2.Theft)
-- [/api/environment/air-quality](#3.-Air-Quality)
-- [/api/environment/uv](#4.-UV)
-- [/api/environment/waste-disposal](#5.-Waste-Disposal)
-- [/api/environment/water-quality](#6.-Water-Quality)
-- [/api/eco/clothes-recycle](#7.-Clothes-Recycle)
-- [/api/eco/garbage-truck](#8.-Garbage-Truck)
-- [/api/eco/green-store](#9.-Green-Store)
-- [/api/eco/reward-store](#10.-Reward-Store)
+- /api/safety/accident
+- /api/safety/theft
+- /api/environment/air-quality
+- /api/environment/uv
+- /api/environment/waste-disposal
+- /api/environment/water-quality
+- /api/eco/clothes-recycle
+- /api/eco/garbage-truck
+- /api/eco/green-store
+- /api/eco/reward-store
 
 ### 1. Accident
 
