@@ -47,7 +47,19 @@ python manage.py runserver
 
 ## APIs
 
-### 1. Accidents
+### API List
+- [/api/safety/accident](#1.Accident)
+- [/api/safety/theft](#2.Theft)
+- [/api/environment/air-quality](#3.-Air-Quality)
+- [/api/environment/uv](#4.-UV)
+- [/api/environment/waste-disposal](#5.-Waste-Disposal)
+- [/api/environment/water-quality](#6.-Water-Quality)
+- [/api/eco/clothes-recycle](#7.-Clothes-Recycle)
+- [/api/eco/garbage-truck](#8.-Garbage-Truck)
+- [/api/eco/green-store](#9.-Green-Store)
+- [/api/eco/reward-store](#10.-Reward-Store)
+
+### 1. Accident
 
 #### Description
 Return accidents that happened from January 2020 to December 2020 within the query distance and during the time specified.
@@ -86,7 +98,7 @@ POST
 }
 ```
 
-### 2. Thefts
+### 2. Theft
 
 #### Description
 Return thefts within the query distance and during the time specified. 
@@ -126,12 +138,12 @@ POST
 ### 3. Air Quality
 
 #### Description
-Return AQI from the nearest observatory.  
+Return AQI from the nearest observatory as a dict.  
 
 ![](https://i.imgur.com/s84fOPO.png)
 
 #### Path
-/api/environment/airquality
+/api/environment/air-quality
 
 #### Method
 POST
@@ -222,6 +234,186 @@ POST
     "wmethod": null,
     "latitude": 25.040736,
     "longitude": 121.587888
+}
+```
+
+### 6. Water Quality
+
+#### Description
+Return list of dam water quality analysis made on different date. Currently data of `翡翠水庫` would always be returned regardless of the query location.
+
+#### Path
+/api/environment/water-quality
+
+#### Method
+POST
+
+#### Argument:
+- `latitude` (required) 
+- `longitude` (required)
+- `month` (optional): the default value is 6 months.
+
+#### Response
+- `tp` 總磷
+- `chl_a` 葉綠素a
+- `sd` 透明度
+- `algae`
+- `ctsi` 卡爾森指數
+- `status` 貧養, 普養, 優養 
+- `site_id`
+- `date`
+
+#### Response example
+```
+{
+    "tp": 10.83,
+    "chl_a": 2.83,
+    "sd": 5.88,
+    "algae": 6229,
+    "ctsi": 37.93,
+    "status": "貧養",
+    "site_id": 70,
+    "date": "2020-12-01T00:00:00"
+}
+```
+
+### 7. Clothes Recycle
+
+#### Description
+Return clothes recycle bin within the query distance.
+
+#### Path
+/api/eco/clothes-recycle
+
+#### Method
+POST
+
+#### Argument:
+- `latitude` (required) 
+- `longitude` (required)
+- `distance` (optional, unit: meter): the default value is 1000 meters.
+
+#### Response
+- `cid`
+- `cadd`
+- `latitude`
+- `longitude`
+- `agency_name` 
+
+#### Response example
+```
+{
+    "cid": 113,
+    "cadd": "臺北市瑞安街208巷3號前",
+    "latitude": 25.028494,
+    "longitude": 121.540299,
+    "agency_name": "社團法人臺北市視障樂活福利促進會"
+}
+```
+
+### 8. Garbage Truck
+
+#### Description
+Return garbage truck route within the query distance.
+
+#### Path
+/api/eco/garbage-truck
+
+#### Method
+POST
+
+#### Argument:
+- `latitude` (required) 
+- `longitude` (required)
+- `distance` (optional, unit: meter): the default value is 1000 meters.
+
+#### Response
+- `tadd`
+- `latitude`
+- `longitude`
+- `license_id`
+- `arrival`
+- `leaving` 
+
+#### Response example
+```
+{
+    "tadd": "臺北市大安區信義路三段147巷11弄1號前",
+    "latitude": 25.03482759,
+    "longitude": 121.5419841,
+    "license_id": 2,
+    "arrival": "18:27:00",
+    "leaving": "18:37:00"
+}
+```
+
+### 9. Green Store
+
+#### Description
+Return green stores within the query distance.
+
+#### Path
+/api/eco/green-store
+
+#### Method
+POST
+
+#### Argument:
+- `latitude` (required) 
+- `longitude` (required)
+- `distance` (optional, unit: meter): the default value is 1000 meters.
+
+#### Response
+- `gsname`
+- `gsadd`
+- `latitude`
+- `longitude`
+- `store_type_id` 1 for restaurants, 2 for stores.
+
+#### Response example
+```
+{
+    "gsname": "仁里居",
+    "gsadd": "臺北市大安區建國南路二段151巷16號",
+    "latitude": 25.02867,
+    "longitude": 121.538584,
+    "store_type_id": 1
+}
+```
+
+### 10. Reward Store
+
+#### Description
+Return stores that offer discount with specified requirements within the query distance.
+
+#### Path
+/api/environment/reward-store
+
+#### Method
+POST
+
+#### Argument:
+- `latitude` (required) 
+- `longitude` (required)
+- `distance` (optional, unit: meter): the default value is 1000 meters.
+
+#### Response
+- `rname`
+- `discount`
+- `latitude`
+- `longitude`
+- `store_type_id` 1 for restaurants, 3 for drink shops.
+- `requirement`
+
+#### Response example
+```
+{
+    "rname": "火腿蛋炒飯",
+    "discount": "每次消費提供加料不加價",
+    "latitude": 25.0504504,
+    "longitude": 121.5758873,
+    "store_type_id": 1,
+    "requirement": "自備餐盒"
 }
 ```
 

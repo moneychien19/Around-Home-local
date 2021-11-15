@@ -22,7 +22,7 @@ def get_distance_from_lat_lng(lat1, lng1, lat2, lng2):
 def around_house(lat1, lng1, lat2, lng2, threshold):
     if lat2 is None or lng2 is None:
         return False
-    
+        
     d = get_distance_from_lat_lng(lat1, lng1, float(lat2), float(lng2))
     return d <= threshold
 
