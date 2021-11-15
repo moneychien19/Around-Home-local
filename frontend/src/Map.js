@@ -3,9 +3,10 @@ import GoogleMapReact from "google-map-react";
 import API_KEY from "./key";
 import Marker from "./Marker";
 import Pin from "./Pin";
+import { Tooltip } from "antd";
 
 // Map
-function Map({ lat, lng, theftLoc, accidentLoc, distanceRange }) {
+function Map({ lat, lng, disposalLoc, theftLoc, accidentLoc, distanceRange }) {
   let apiKey = API_KEY;
 
   return (
@@ -14,9 +15,20 @@ function Map({ lat, lng, theftLoc, accidentLoc, distanceRange }) {
         <GoogleMapReact
           bootstrapURLKeys={{ key: apiKey }}
           center={{ lat: lat, lng: lng }}
-          zoom={Number(distanceRange) >= 2000 ? 14 : 16}
+          zoom={Number(distanceRange) >= 1000 ? 14 : 16}
         >
           <Marker lat={lat} lng={lng} id="query" />
+          {!disposalLoc
+            ? null
+            : disposalLoc.map((aLoc) => (
+                // <Tooltip
+                //   placement="topLeft"
+                //   title="Prompt Text"
+                //   arrowPointAtCenter
+                // >
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="ecoPin" />
+                // </Tooltip>
+              ))}
           {!theftLoc
             ? null
             : theftLoc.map((aLoc) => (

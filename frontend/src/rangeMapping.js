@@ -1,5 +1,7 @@
 const distanceMapping = (distanceRange) => {
-  if (distanceRange === "500") {
+  if (distanceRange === "250") {
+    return "250公尺";
+  } else if (distanceRange === "500") {
     return "500公尺";
   } else {
     return String(Number(distanceRange) / 1000) + "公里";

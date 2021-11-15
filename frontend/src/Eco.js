@@ -1,6 +1,6 @@
 import React from "react";
 
-const Eco = () => {
+const Eco = ({ disposalRowData }) => {
   let ecoData = [
     ["綠色友善餐廳", "5間"],
     ["綠色商店", "3間"],
@@ -8,7 +8,7 @@ const Eco = () => {
     ["自備餐具優惠店家", "1間"],
     ["舊衣回收箱", "2個"],
     ["垃圾車停靠點", "2個"],
-    ["公民營廢棄物清除機構", "1間"],
+    // ["公民營廢棄物清除機構", "1間"],
   ];
   return (
     <div className="card" id="eco">
@@ -25,6 +25,10 @@ const Eco = () => {
               ))}
             </tr>
           ))}
+          <tr>
+            <td>公民營廢棄物清除機構</td>
+            <td>{disposalRowData} 間</td>
+          </tr>
         </table>
       </div>
     </div>
