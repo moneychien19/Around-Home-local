@@ -13,8 +13,12 @@
   color: #fda65d;
 }
 
-#ecoPin {
+#greenPin {
   color: #3e7c17;
+}
+
+#garbagePin {
+  color: #ffe459;
 }
 
 #safetyPin {

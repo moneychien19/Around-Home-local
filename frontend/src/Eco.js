@@ -1,30 +1,48 @@
 import React from "react";
+import { distanceMapping } from "./rangeMapping";
 
-const Eco = ({ disposalRowData }) => {
-  let ecoData = [
-    ["綠色友善餐廳", "5間"],
-    ["綠色商店", "3間"],
-    ["自備飲料杯優惠店家", "3間"],
-    ["自備餐具優惠店家", "1間"],
-    ["舊衣回收箱", "2個"],
-    ["垃圾車停靠點", "2個"],
-    // ["公民營廢棄物清除機構", "1間"],
-  ];
+const Eco = ({
+  greenResRowData,
+  greenStoreRowData,
+  rewardResRowData,
+  rewardStoreRowData,
+  garbageRowData,
+  clothesRowData,
+  disposalRowData,
+  distangeRange,
+}) => {
   return (
     <div className="card" id="eco">
       <div className="title">
         <h3>環保</h3>
-        <p>1公里內...</p>
+        <p>方圓{distanceMapping(distangeRange)}內的...</p>
       </div>
       <div className="table">
         <table>
-          {ecoData.map((aRow) => (
-            <tr>
-              {aRow.map((anItem) => (
-                <td>{anItem}</td>
-              ))}
-            </tr>
-          ))}
+          <tr>
+            <td>綠色友善餐廳</td>
+            <td>{greenResRowData} 間</td>
+          </tr>
+          <tr>
+            <td>綠色商店</td>
+            <td>{greenStoreRowData} 間</td>
+          </tr>
+          <tr>
+            <td>自備餐具優惠店家</td>
+            <td>{rewardResRowData} 間</td>
+          </tr>
+          <tr>
+            <td>自備飲料杯優惠店家</td>
+            <td>{rewardStoreRowData} 間</td>
+          </tr>
+          <tr>
+            <td>垃圾車停靠點</td>
+            <td>{garbageRowData} 個</td>
+          </tr>
+          <tr>
+            <td>舊衣回收箱</td>
+            <td>{clothesRowData} 個</td>
+          </tr>
           <tr>
             <td>公民營廢棄物清除機構</td>
             <td>{disposalRowData} 間</td>

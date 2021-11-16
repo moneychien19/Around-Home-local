@@ -1,20 +1,14 @@
 import React from "react";
 
-const Environment = ({ AQIRowData, UVRowData }) => {
-  const header = ["指標", "鄰近測站", "數值", "狀態"];
-  let environmentData = [
-    // ["空氣品質指標AQI", "新北市-永和", 37, "良好"],
-    // ["紫外線指數", "新北市-板橋", 6, "高量級"],
-    ["水庫水質卡爾森指數", "翡翠水庫", 52, "優氧"],
-    ["河川汙染指數", "淡水河-中正橋", 4.5, "中度汙染"],
-  ];
+const Environment = ({ AQIRowData, UVRowData, WQIRowData }) => {
+  const header = ["指標", "鄰近測站", "數值", "狀態", "測量時間"];
 
   return (
     <div className="whole">
       <div className="card" id="environment">
         <div className="title">
           <h3>環境指標</h3>
-          <p>現在的...</p>
+          <p>距離最近的測站最新的測量值</p>
         </div>
         <div className="table">
           <table>
@@ -36,13 +30,11 @@ const Environment = ({ AQIRowData, UVRowData }) => {
                   <td>{anItem}</td>
                 ))}
               </tr>
-              {environmentData.map((aRow) => (
-                <tr>
-                  {aRow.map((anItem) => (
-                    <td>{anItem}</td>
-                  ))}
-                </tr>
-              ))}
+              <tr>
+                {WQIRowData.map((anItem) => (
+                  <td>{anItem}</td>
+                ))}
+              </tr>
             </tbody>
           </table>
         </div>

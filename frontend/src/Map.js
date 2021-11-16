@@ -6,7 +6,20 @@ import Pin from "./Pin";
 import { Tooltip } from "antd";
 
 // Map
-function Map({ lat, lng, disposalLoc, theftLoc, accidentLoc, distanceRange }) {
+function Map({
+  lat,
+  lng,
+  greenResLoc,
+  greenStoreLoc,
+  rewardResLoc,
+  rewardStoreLoc,
+  garbageLoc,
+  clothesLoc,
+  disposalLoc,
+  theftLoc,
+  accidentLoc,
+  distanceRange,
+}) {
   let apiKey = API_KEY;
 
   return (
@@ -18,16 +31,40 @@ function Map({ lat, lng, disposalLoc, theftLoc, accidentLoc, distanceRange }) {
           zoom={Number(distanceRange) >= 1000 ? 14 : 16}
         >
           <Marker lat={lat} lng={lng} id="query" />
+          {!greenResLoc
+            ? null
+            : greenResLoc.map((aLoc) => (
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
+              ))}
+          {!greenStoreLoc
+            ? null
+            : greenStoreLoc.map((aLoc) => (
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
+              ))}
+          {!rewardResLoc
+            ? null
+            : rewardResLoc.map((aLoc) => (
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
+              ))}
+          {!rewardStoreLoc
+            ? null
+            : rewardStoreLoc.map((aLoc) => (
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
+              ))}
+          {!garbageLoc
+            ? null
+            : garbageLoc.map((aLoc) => (
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="garbagePin" />
+              ))}
+          {!clothesLoc
+            ? null
+            : clothesLoc.map((aLoc) => (
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="garbagePin" />
+              ))}
           {!disposalLoc
             ? null
             : disposalLoc.map((aLoc) => (
-                // <Tooltip
-                //   placement="topLeft"
-                //   title="Prompt Text"
-                //   arrowPointAtCenter
-                // >
-                <Pin lat={aLoc[0]} lng={aLoc[1]} id="ecoPin" />
-                // </Tooltip>
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="garbagePin" />
               ))}
           {!theftLoc
             ? null

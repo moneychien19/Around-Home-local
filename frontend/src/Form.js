@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "./key";
-import { fetchAQI, fetchUV } from "./fetchEnvironment";
-import { fetchDisposal } from "./fetchEco";
+import { fetchAQI, fetchUV, fetchWQI } from "./fetchEnvironment";
+import {
+  fetchGreen,
+  fetchGarbage,
+  fetchClothes,
+  fetchDisposal,
+  fetchReward,
+} from "./fetchEco";
 import { fetchTheft, fetchAccident } from "./fetchSafety";
 
 const Form = ({
@@ -18,6 +24,19 @@ const Form = ({
   setTimeRange,
   setAQIRowData,
   setUVRowData,
+  setWQIRowData,
+  setGreenResLoc,
+  setGreenResRowData,
+  setGreenStoreLoc,
+  setGreenStoreRowData,
+  setRewardResLoc,
+  setRewardResRowData,
+  setRewardStoreLoc,
+  setRewardStoreRowData,
+  setGarbageRowData,
+  setGarbageLoc,
+  setClothesRowData,
+  setClothesLoc,
   setDisposalRowData,
   setDisposalLoc,
   setTheftRowData,
@@ -109,8 +128,29 @@ const Form = ({
     // get "environment" data and set
     fetchAQI(lat, lng, setAQIRowData);
     fetchUV(lat, lng, setUVRowData);
+    fetchWQI(lat, lng, setWQIRowData);
 
     // get "eco" data and set
+    fetchGreen(
+      lat,
+      lng,
+      distanceRange,
+      setGreenResLoc,
+      setGreenResRowData,
+      setGreenStoreLoc,
+      setGreenStoreRowData
+    );
+    fetchReward(
+      lat,
+      lng,
+      distanceRange,
+      setRewardResLoc,
+      setRewardResRowData,
+      setRewardStoreLoc,
+      setRewardStoreRowData
+    );
+    fetchGarbage(lat, lng, distanceRange, setGarbageRowData, setGarbageLoc);
+    fetchClothes(lat, lng, distanceRange, setClothesRowData, setClothesLoc);
     fetchDisposal(lat, lng, distanceRange, setDisposalRowData, setDisposalLoc);
 
     // get "safety" data and set

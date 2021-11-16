@@ -20,6 +20,24 @@ function App() {
   // data fetching
   let [AQIRowData, setAQIRowData] = useState(["空氣品質指標AQI", "", "", ""]);
   let [UVRowData, setUVRowData] = useState(["紫外線指數", "", "", ""]);
+  let [WQIRowData, setWQIRowData] = useState([
+    "水庫水質卡爾森指數",
+    "",
+    "",
+    "",
+  ]);
+  let [greenResLoc, setGreenResLoc] = useState([]);
+  let [greenResRowData, setGreenResRowData] = useState(0);
+  let [greenStoreLoc, setGreenStoreLoc] = useState([]);
+  let [greenStoreRowData, setGreenStoreRowData] = useState(0);
+  let [rewardResLoc, setRewardResLoc] = useState([]);
+  let [rewardResRowData, setRewardResRowData] = useState(0);
+  let [rewardStoreLoc, setRewardStoreLoc] = useState([]);
+  let [rewardStoreRowData, setRewardStoreRowData] = useState(0);
+  let [garbageRowData, setGarbageRowData] = useState(0);
+  let [garbageLoc, setGarbageLoc] = useState([]);
+  let [clothesRowData, setClothesRowData] = useState(0);
+  let [clothesLoc, setClothesLoc] = useState([]);
   let [disposalRowData, setDisposalRowData] = useState(0);
   let [disposalLoc, setDisposalLoc] = useState([]);
   let [theftRowData, setTheftRowData] = useState({
@@ -49,6 +67,19 @@ function App() {
       setTimeRange={setTimeRange}
       setAQIRowData={setAQIRowData}
       setUVRowData={setUVRowData}
+      setWQIRowData={setWQIRowData}
+      setGreenResLoc={setGreenResLoc}
+      setGreenResRowData={setGreenResRowData}
+      setGreenStoreLoc={setGreenStoreLoc}
+      setGreenStoreRowData={setGreenStoreRowData}
+      setRewardResLoc={setRewardResLoc}
+      setRewardResRowData={setRewardResRowData}
+      setRewardStoreLoc={setRewardStoreLoc}
+      setRewardStoreRowData={setRewardStoreRowData}
+      setGarbageRowData={setGarbageRowData}
+      setGarbageLoc={setGarbageLoc}
+      setClothesRowData={setClothesRowData}
+      setClothesLoc={setClothesLoc}
       setDisposalRowData={setDisposalRowData}
       setDisposalLoc={setDisposalLoc}
       setTheftRowData={setTheftRowData}
@@ -58,9 +89,24 @@ function App() {
     />
   );
   let environmentView = (
-    <Environment AQIRowData={AQIRowData} UVRowData={UVRowData} />
+    <Environment
+      AQIRowData={AQIRowData}
+      UVRowData={UVRowData}
+      WQIRowData={WQIRowData}
+    />
   );
-  let ecoView = <Eco disposalRowData={disposalRowData} />;
+  let ecoView = (
+    <Eco
+      greenResRowData={greenResRowData}
+      greenStoreRowData={greenStoreRowData}
+      rewardResRowData={rewardResRowData}
+      rewardStoreRowData={rewardStoreRowData}
+      garbageRowData={garbageRowData}
+      clothesRowData={clothesRowData}
+      disposalRowData={disposalRowData}
+      distangeRange={distanceRange}
+    />
+  );
   let safetyView = (
     <Safety
       theftRowData={theftRowData}
@@ -73,6 +119,12 @@ function App() {
     <Map
       lat={lat}
       lng={lng}
+      greenResLoc={greenResLoc}
+      greenStoreLoc={greenStoreLoc}
+      rewardResLoc={rewardResLoc}
+      rewardStoreLoc={rewardStoreLoc}
+      garbageLoc={garbageLoc}
+      clothesLoc={clothesLoc}
       disposalLoc={disposalLoc}
       theftLoc={theftLoc}
       accidentLoc={accidentLoc}

@@ -18,6 +18,9 @@ let fetchTheft = (lat, lng, distance, month, setTheftRowData, setTheftLoc) => {
       return res.json();
     })
     .then((data) => {
+      console.log("案件");
+      console.log(data);
+
       let tempTheft = {
         自行車竊盜: 0,
         機車竊盜: 0,
@@ -63,6 +66,9 @@ let fetchAccident = (
       return res.json();
     })
     .then((data) => {
+      console.log("交通事故");
+      console.log(data);
+
       let tempAccident = { 交通事故: data.length };
       let tempLoc = [];
       setAccidentRowData(tempAccident);
