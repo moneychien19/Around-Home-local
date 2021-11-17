@@ -9,7 +9,38 @@ const Safety = ({
   accidentRowData,
   distanceRange,
   timeRange,
+  showPins,
+  setShowPins,
 }) => {
+  const checkHandler = (e) => {
+    let key = e.target.id;
+    let tempShow = JSON.parse(JSON.stringify(showPins));
+
+    // control the other pins in the content
+    let controlledPins;
+    if (key === "showTheft") {
+      controlledPins = document.querySelectorAll(".controlled#theftPin");
+    }
+    if (key === "showAccident") {
+      controlledPins = document.querySelectorAll(".controlled#accidentPin");
+    }
+    controlledPins.forEach((el) => {
+      if (tempShow[key] === false) {
+        el.style = "opacity: 0.3";
+      } else {
+        el.style = "opacity: 1";
+      }
+    });
+
+    // set the state
+    if (tempShow[key] === true) {
+      tempShow[key] = false;
+    } else {
+      tempShow[key] = true;
+    }
+    setShowPins(tempShow);
+  };
+
   return (
     <div className="card" id="safety">
       <div className="title">
@@ -21,7 +52,12 @@ const Safety = ({
       </div>
       <div className="checkbox">
         <div className="checkTheft">
-          <input type="checkbox" name="" id="showTheft" />
+          <input
+            type="checkbox"
+            name=""
+            id="showTheft"
+            onChange={checkHandler}
+          />
           <label htmlFor="showTheft">
             <FontAwesomeIcon
               icon={faMapPin}
@@ -34,7 +70,12 @@ const Safety = ({
           <br />
         </div>
         <div className="checkAccident">
-          <input type="checkbox" name="" id="showAccident" />
+          <input
+            type="checkbox"
+            name=""
+            id="showAccident"
+            onChange={checkHandler}
+          />
           <label htmlFor="showAccident">
             <FontAwesomeIcon
               icon={faMapPin}
@@ -54,7 +95,7 @@ const Safety = ({
               <td>
                 <FontAwesomeIcon
                   icon={faMapPin}
-                  className="pin"
+                  className="pin controlled"
                   id="theftPin"
                   size="1x"
                 />
@@ -67,7 +108,7 @@ const Safety = ({
             <td>
               <FontAwesomeIcon
                 icon={faMapPin}
-                className="pin"
+                className="pin controlled"
                 id="accidentPin"
                 size="1x"
               />

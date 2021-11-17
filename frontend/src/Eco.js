@@ -13,7 +13,19 @@ const Eco = ({
   clothesRowData,
   disposalRowData,
   distangeRange,
+  showPins,
+  setShowPins,
 }) => {
+  const checkHandler = (e) => {
+    let key = e.target.id;
+    let tempShow = JSON.parse(JSON.stringify(showPins));
+    if (tempShow[key] === true) {
+      tempShow[key] = false;
+    } else {
+      tempShow[key] = true;
+    }
+    setShowPins(tempShow);
+  };
   return (
     <div className="card" id="eco">
       <div className="title">
@@ -24,7 +36,12 @@ const Eco = ({
         <table>
           <tr>
             <td>
-              <input type="checkbox" name="" id="showGreenRes" />
+              <input
+                type="checkbox"
+                name=""
+                id="showGreenRes"
+                onChange={checkHandler}
+              />
               <label htmlFor="showGreenRes">
                 <FontAwesomeIcon
                   icon={faMapPin}
@@ -39,7 +56,12 @@ const Eco = ({
           </tr>
           <tr>
             <td>
-              <input type="checkbox" name="" id="showGreenStore" />
+              <input
+                type="checkbox"
+                name=""
+                id="showGreenStore"
+                onChange={checkHandler}
+              />
               <label htmlFor="showGreenStore">
                 <FontAwesomeIcon
                   icon={faMapPin}
@@ -54,7 +76,12 @@ const Eco = ({
           </tr>
           <tr>
             <td>
-              <input type="checkbox" name="" id="showRewardRes" />
+              <input
+                type="checkbox"
+                name=""
+                id="showRewardRes"
+                onChange={checkHandler}
+              />
               <label htmlFor="showRewardRes">
                 <FontAwesomeIcon
                   icon={faMapPin}
@@ -69,7 +96,12 @@ const Eco = ({
           </tr>
           <tr>
             <td>
-              <input type="checkbox" name="" id="showRewardStore" />
+              <input
+                type="checkbox"
+                name=""
+                id="showRewardStore"
+                onChange={checkHandler}
+              />
               <label htmlFor="showRewardStore">
                 <FontAwesomeIcon
                   icon={faMapPin}
@@ -84,7 +116,12 @@ const Eco = ({
           </tr>
           <tr>
             <td>
-              <input type="checkbox" name="" id="showGarbage" />
+              <input
+                type="checkbox"
+                name=""
+                id="showGarbage"
+                onChange={checkHandler}
+              />
               <label htmlFor="showGarbage">
                 <FontAwesomeIcon
                   icon={faMapPin}
@@ -99,7 +136,12 @@ const Eco = ({
           </tr>
           <tr>
             <td>
-              <input type="checkbox" name="" id="showClothes" />
+              <input
+                type="checkbox"
+                name=""
+                id="showClothes"
+                onChange={checkHandler}
+              />
               <label htmlFor="showClothes">
                 <FontAwesomeIcon
                   icon={faMapPin}
@@ -114,7 +156,12 @@ const Eco = ({
           </tr>
           <tr>
             <td>
-              <input type="checkbox" name="" id="showDisposal" />
+              <input
+                type="checkbox"
+                name=""
+                id="showDisposal"
+                onChange={checkHandler}
+              />
               <label htmlFor="showDisposal">
                 <FontAwesomeIcon
                   icon={faMapPin}

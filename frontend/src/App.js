@@ -52,6 +52,19 @@ function App() {
   let [accidentRowData, setAccidentRowData] = useState({ 交通事故: 0 });
   let [accidentLoc, setAccidentLoc] = useState([]);
 
+  // define the pins should be showed or hid
+  let [showPins, setShowPins] = useState({
+    showGreenRes: false,
+    showGreenStore: false,
+    showRewardRes: false,
+    showRewardStore: false,
+    showGarbage: false,
+    showClothes: false,
+    showDisposal: false,
+    showTheft: false,
+    showAccident: false,
+  });
+
   // define views
   let formView = (
     <Form
@@ -105,6 +118,8 @@ function App() {
       clothesRowData={clothesRowData}
       disposalRowData={disposalRowData}
       distangeRange={distanceRange}
+      showPins={showPins}
+      setShowPins={setShowPins}
     />
   );
   let safetyView = (
@@ -113,6 +128,8 @@ function App() {
       accidentRowData={accidentRowData}
       distanceRange={distanceRange}
       timeRange={timeRange}
+      showPins={showPins}
+      setShowPins={setShowPins}
     />
   );
   let mapView = (
@@ -129,6 +146,7 @@ function App() {
       theftLoc={theftLoc}
       accidentLoc={accidentLoc}
       distanceRange={distanceRange}
+      showPins={showPins}
     />
   );
 
