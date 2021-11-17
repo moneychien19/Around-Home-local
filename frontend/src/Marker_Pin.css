@@ -10,7 +10,7 @@
 }
 
 #query {
-  color: #fda65d;
+  color: #00bfff;
 }
 
 #greenPin {
@@ -18,9 +18,13 @@
 }
 
 #garbagePin {
-  color: #ffe459;
+  color: #ffbf00;
 }
 
-#safetyPin {
+#theftPin {
   color: #b85252;
+}
+
+#accidentPin {
+  color: #ba55d3;
 }

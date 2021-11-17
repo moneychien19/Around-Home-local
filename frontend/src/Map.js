@@ -3,7 +3,6 @@ import GoogleMapReact from "google-map-react";
 import API_KEY from "./key";
 import Marker from "./Marker";
 import Pin from "./Pin";
-import { Tooltip } from "antd";
 
 // Map
 function Map({
@@ -69,12 +68,12 @@ function Map({
           {!theftLoc
             ? null
             : theftLoc.map((aLoc) => (
-                <Pin lat={aLoc[0]} lng={aLoc[1]} id="safetyPin" />
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="theftPin" />
               ))}
           {!accidentLoc
             ? null
             : accidentLoc.map((aLoc) => (
-                <Pin lat={aLoc[0]} lng={aLoc[1]} id="safetyPin" />
+                <Pin lat={aLoc[0]} lng={aLoc[1]} id="accidentPin" />
               ))}
         </GoogleMapReact>
       </div>

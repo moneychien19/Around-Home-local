@@ -2,7 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  // font-family: "Noto Serif TC", serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 div#root {
   display: flex;
@@ -135,6 +135,7 @@ div#root {
         color: #ad91a3;
       }
     }
+
     div.table {
       display: flex;
       flex-direction: column;
@@ -154,7 +155,7 @@ div#root {
         tr {
           td {
             text-align: center;
-            padding: 1.1rem 1.25rem;
+            padding: 1.1rem 1rem;
           }
         }
       }
@@ -162,13 +163,61 @@ div#root {
         tr {
           td {
             text-align: center;
-            padding: 0.5rem 1.25rem;
+            padding: 0.5rem 1rem;
           }
         }
       }
     }
   }
   div#eco {
+    table {
+      margin-top: 1rem;
+      margin-bottom: 1.25rem;
+      tr {
+        td {
+          input[type="checkbox"] {
+            display: none;
+          }
+          input[type="checkbox"] + label {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+          }
+          input[type="checkbox"]:checked + label {
+            opacity: 0.3;
+          }
+          text-align: center;
+          padding: 0.5rem 0.6rem;
+        }
+      }
+    }
+  }
+  div#safety {
+    div.checkbox {
+      display: flex;
+      margin-left: 1rem;
+      div {
+        display: flex;
+        width: 7rem;
+        margin: 1rem 1rem 0rem 1rem;
+      }
+      p {
+        margin: 0 0.5rem 0 0;
+      }
+      input[type="checkbox"] {
+        display: none;
+      }
+      input[type="checkbox"] + label {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+      input[type="checkbox"]:checked + label {
+        opacity: 0.3;
+      }
+    }
     table {
       tr {
         td {
@@ -178,19 +227,9 @@ div#root {
       }
     }
   }
-  div#safety {
-    table {
-      tr {
-        td {
-          text-align: center;
-          padding: 0.5rem 1.5rem;
-        }
-      }
-    }
-  }
   div#map {
     width: 100%;
-    height: 60vh;
+    height: 66vh;
     border-radius: 1rem;
     padding: 0;
   }
