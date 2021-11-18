@@ -1,44 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { distanceMapping, timeMapping } from "./rangeMapping";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import "./Marker_Pin.css";
 
 const Safety = ({
+  showContent,
   theftRowData,
   accidentRowData,
   distanceRange,
   timeRange,
-  showPins,
-  setShowPins,
+  hidePins,
+  setHidePins,
 }) => {
+  useEffect(() => {
+    document.querySelectorAll("input.pinIcon").forEach((icon) => {
+      let key = icon.id;
+      if (hidePins[key] === true) {
+        icon.checked = true;
+      } else {
+        icon.checked = false;
+      }
+      control(key, hidePins);
+    });
+  }, [showContent]);
+
   const checkHandler = (e) => {
     let key = e.target.id;
-    let tempShow = JSON.parse(JSON.stringify(showPins));
-
-    // control the other pins in the content
-    let controlledPins;
-    if (key === "showTheft") {
-      controlledPins = document.querySelectorAll(".controlled#theftPin");
-    }
-    if (key === "showAccident") {
-      controlledPins = document.querySelectorAll(".controlled#accidentPin");
-    }
-    controlledPins.forEach((el) => {
-      if (tempShow[key] === false) {
-        el.style = "opacity: 0.3";
-      } else {
-        el.style = "opacity: 1";
-      }
-    });
 
     // set the state
+    let tempShow = JSON.parse(JSON.stringify(hidePins));
     if (tempShow[key] === true) {
       tempShow[key] = false;
     } else {
       tempShow[key] = true;
     }
-    setShowPins(tempShow);
+    setHidePins(tempShow);
+    control(key, tempShow);
+  };
+
+  const control = (key, hideList) => {
+    // control the other pins in the content
+    let controlledTheft = document.querySelectorAll(".controlled#theftPin");
+    let controlledAccident = document.querySelectorAll(
+      ".controlled#accidentPin"
+    );
+    if (key === "hideTheft") {
+      if (hideList[key] === true) {
+        controlledTheft.forEach((el) => (el.style = "opacity: 0.3"));
+      } else {
+        controlledTheft.forEach((el) => (el.style = "opacity: 1"));
+      }
+    } else if (key === "hideAccident") {
+      if (hideList[key] === true) {
+        controlledAccident.forEach((el) => (el.style = "opacity: 0.3"));
+      } else {
+        controlledAccident.forEach((el) => (el.style = "opacity: 1"));
+      }
+    }
   };
 
   return (
@@ -55,10 +74,11 @@ const Safety = ({
           <input
             type="checkbox"
             name=""
-            id="showTheft"
+            className="pinIcon"
+            id="hideTheft"
             onChange={checkHandler}
           />
-          <label htmlFor="showTheft">
+          <label htmlFor="hideTheft">
             <FontAwesomeIcon
               icon={faMapPin}
               className="pin"
@@ -73,10 +93,11 @@ const Safety = ({
           <input
             type="checkbox"
             name=""
-            id="showAccident"
+            className="pinIcon"
+            id="hideAccident"
             onChange={checkHandler}
           />
-          <label htmlFor="showAccident">
+          <label htmlFor="hideAccident">
             <FontAwesomeIcon
               icon={faMapPin}
               className="pin"

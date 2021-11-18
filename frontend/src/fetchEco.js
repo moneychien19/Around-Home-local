@@ -1,3 +1,5 @@
+const baseUrl = "http://localhost:8000/api/eco/";
+
 let fetchGreen = (
   lat,
   lng,
@@ -7,7 +9,7 @@ let fetchGreen = (
   setGreenStoreLoc,
   setGreenStoreRowData
 ) => {
-  fetch("http://localhost:8000/api/eco/green-store", {
+  fetch(baseUrl + "green-store", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,11 +52,9 @@ let fetchReward = (
   lng,
   distance,
   setRewardResLoc,
-  setRewardResRowData,
-  setRewardStoreLoc,
-  setRewardStoreRowData
+  setRewardResRowData
 ) => {
-  fetch("http://localhost:8000/api/eco/reward-store", {
+  fetch(baseUrl + "reward-store", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -76,24 +76,18 @@ let fetchReward = (
       console.log(data);
 
       let tempResLoc = [];
-      let tempStoreLoc = [];
       for (let i = 0; i < data.length; i++) {
         if (data[i]["store_type_id"] === 1) {
           tempResLoc.push([data[i]["latitude"], data[i]["longitude"]]);
         }
-        if (data[i]["store_type_id"] === 3) {
-          tempStoreLoc.push([data[i]["latitude"], data[i]["longitude"]]);
-        }
       }
       setRewardResLoc(tempResLoc);
       setRewardResRowData(tempResLoc.length);
-      setRewardStoreLoc(tempStoreLoc);
-      setRewardStoreRowData(tempStoreLoc.length);
     });
 };
 
 let fetchGarbage = (lat, lng, distance, setGarbageRowData, setGarbageLoc) => {
-  fetch("http://localhost:8000/api/eco/garbage-truck", {
+  fetch(baseUrl + "garbage-truck", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -126,7 +120,7 @@ let fetchGarbage = (lat, lng, distance, setGarbageRowData, setGarbageLoc) => {
 };
 
 let fetchClothes = (lat, lng, distance, setClothesRowData, setClothesLoc) => {
-  fetch("http://localhost:8000/api/eco/clothes-recycle", {
+  fetch(baseUrl + "clothes-recycle", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,30 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { distanceMapping } from "./rangeMapping";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import "./Marker_Pin.css";
 
 const Eco = ({
+  showContent,
   greenResRowData,
   greenStoreRowData,
   rewardResRowData,
-  rewardStoreRowData,
   garbageRowData,
   clothesRowData,
   disposalRowData,
   distangeRange,
-  showPins,
-  setShowPins,
+  hidePins,
+  setHidePins,
 }) => {
+  useEffect(() => {
+    document.querySelectorAll("input.pinIcon").forEach((el) => {
+      if (hidePins[el.id] === true) {
+        el.checked = true;
+      } else {
+        el.checked = false;
+      }
+    });
+  }, [showContent]);
+
   const checkHandler = (e) => {
     let key = e.target.id;
-    let tempShow = JSON.parse(JSON.stringify(showPins));
+    let tempShow = JSON.parse(JSON.stringify(hidePins));
     if (tempShow[key] === true) {
       tempShow[key] = false;
     } else {
       tempShow[key] = true;
     }
-    setShowPins(tempShow);
+    setHidePins(tempShow);
   };
   return (
     <div className="card" id="eco">
@@ -39,10 +49,11 @@ const Eco = ({
               <input
                 type="checkbox"
                 name=""
-                id="showGreenRes"
+                className="pinIcon"
+                id="hideGreenRes"
                 onChange={checkHandler}
               />
-              <label htmlFor="showGreenRes">
+              <label htmlFor="hideGreenRes">
                 <FontAwesomeIcon
                   icon={faMapPin}
                   className="pin"
@@ -59,10 +70,11 @@ const Eco = ({
               <input
                 type="checkbox"
                 name=""
-                id="showGreenStore"
+                className="pinIcon"
+                id="hideGreenStore"
                 onChange={checkHandler}
               />
-              <label htmlFor="showGreenStore">
+              <label htmlFor="hideGreenStore">
                 <FontAwesomeIcon
                   icon={faMapPin}
                   className="pin"
@@ -79,10 +91,11 @@ const Eco = ({
               <input
                 type="checkbox"
                 name=""
-                id="showRewardRes"
+                className="pinIcon"
+                id="hideRewardRes"
                 onChange={checkHandler}
               />
-              <label htmlFor="showRewardRes">
+              <label htmlFor="hideRewardRes">
                 <FontAwesomeIcon
                   icon={faMapPin}
                   className="pin"
@@ -99,30 +112,11 @@ const Eco = ({
               <input
                 type="checkbox"
                 name=""
-                id="showRewardStore"
+                className="pinIcon"
+                id="hideGarbage"
                 onChange={checkHandler}
               />
-              <label htmlFor="showRewardStore">
-                <FontAwesomeIcon
-                  icon={faMapPin}
-                  className="pin"
-                  id="greenPin"
-                  size="1x"
-                />
-              </label>
-            </td>
-            <td>自備飲料杯優惠店家</td>
-            <td>{rewardStoreRowData} 間</td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                type="checkbox"
-                name=""
-                id="showGarbage"
-                onChange={checkHandler}
-              />
-              <label htmlFor="showGarbage">
+              <label htmlFor="hideGarbage">
                 <FontAwesomeIcon
                   icon={faMapPin}
                   className="pin"
@@ -139,10 +133,11 @@ const Eco = ({
               <input
                 type="checkbox"
                 name=""
-                id="showClothes"
+                className="pinIcon"
+                id="hideClothes"
                 onChange={checkHandler}
               />
-              <label htmlFor="showClothes">
+              <label htmlFor="hideClothes">
                 <FontAwesomeIcon
                   icon={faMapPin}
                   className="pin"
@@ -159,10 +154,11 @@ const Eco = ({
               <input
                 type="checkbox"
                 name=""
-                id="showDisposal"
+                className="pinIcon"
+                id="hideDisposal"
                 onChange={checkHandler}
               />
-              <label htmlFor="showDisposal">
+              <label htmlFor="hideDisposal">
                 <FontAwesomeIcon
                   icon={faMapPin}
                   className="pin"

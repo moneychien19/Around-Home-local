@@ -11,14 +11,13 @@ function Map({
   greenResLoc,
   greenStoreLoc,
   rewardResLoc,
-  rewardStoreLoc,
   garbageLoc,
   clothesLoc,
   disposalLoc,
   theftLoc,
   accidentLoc,
   distanceRange,
-  showPins,
+  hidePins,
 }) {
   let apiKey = API_KEY;
 
@@ -31,47 +30,42 @@ function Map({
           zoom={Number(distanceRange) >= 1000 ? 14 : 16}
         >
           <Marker lat={lat} lng={lng} id="query" />
-          {!greenResLoc | showPins["showGreenRes"]
+          {!greenResLoc | hidePins["hideGreenRes"]
             ? null
             : greenResLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
               ))}
-          {!greenStoreLoc | showPins["showGreenStore"]
+          {!greenStoreLoc | hidePins["hideGreenStore"]
             ? null
             : greenStoreLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
               ))}
-          {!rewardResLoc | showPins["showRewardRes"]
+          {!rewardResLoc | hidePins["hideRewardRes"]
             ? null
             : rewardResLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
               ))}
-          {!rewardStoreLoc | showPins["showRewardStore"]
-            ? null
-            : rewardStoreLoc.map((aLoc) => (
-                <Pin lat={aLoc[0]} lng={aLoc[1]} id="greenPin" />
-              ))}
-          {!garbageLoc | showPins["showGarbage"]
+          {!garbageLoc | hidePins["hideGarbage"]
             ? null
             : garbageLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="garbagePin" />
               ))}
-          {!clothesLoc | showPins["showClothes"]
+          {!clothesLoc | hidePins["hideClothes"]
             ? null
             : clothesLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="garbagePin" />
               ))}
-          {!disposalLoc | showPins["showDisposal"]
+          {!disposalLoc | hidePins["hideDisposal"]
             ? null
             : disposalLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="garbagePin" />
               ))}
-          {!theftLoc | showPins["showTheft"]
+          {!theftLoc | hidePins["hideTheft"]
             ? null
             : theftLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="theftPin" />
               ))}
-          {!accidentLoc | showPins["showAccident"]
+          {!accidentLoc | hidePins["hideAccident"]
             ? null
             : accidentLoc.map((aLoc) => (
                 <Pin lat={aLoc[0]} lng={aLoc[1]} id="accidentPin" />

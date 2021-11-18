@@ -31,8 +31,6 @@ const Form = ({
   setGreenStoreRowData,
   setRewardResLoc,
   setRewardResRowData,
-  setRewardStoreLoc,
-  setRewardStoreRowData,
   setGarbageRowData,
   setGarbageLoc,
   setClothesRowData,
@@ -140,15 +138,7 @@ const Form = ({
       setGreenStoreLoc,
       setGreenStoreRowData
     );
-    fetchReward(
-      lat,
-      lng,
-      distanceRange,
-      setRewardResLoc,
-      setRewardResRowData,
-      setRewardStoreLoc,
-      setRewardStoreRowData
-    );
+    fetchReward(lat, lng, distanceRange, setRewardResLoc, setRewardResRowData);
     fetchGarbage(lat, lng, distanceRange, setGarbageRowData, setGarbageLoc);
     fetchClothes(lat, lng, distanceRange, setClothesRowData, setClothesLoc);
     fetchDisposal(lat, lng, distanceRange, setDisposalRowData, setDisposalLoc);

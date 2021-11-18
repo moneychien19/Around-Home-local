@@ -32,8 +32,6 @@ function App() {
   let [greenStoreRowData, setGreenStoreRowData] = useState(0);
   let [rewardResLoc, setRewardResLoc] = useState([]);
   let [rewardResRowData, setRewardResRowData] = useState(0);
-  let [rewardStoreLoc, setRewardStoreLoc] = useState([]);
-  let [rewardStoreRowData, setRewardStoreRowData] = useState(0);
   let [garbageRowData, setGarbageRowData] = useState(0);
   let [garbageLoc, setGarbageLoc] = useState([]);
   let [clothesRowData, setClothesRowData] = useState(0);
@@ -53,16 +51,15 @@ function App() {
   let [accidentLoc, setAccidentLoc] = useState([]);
 
   // define the pins should be showed or hid
-  let [showPins, setShowPins] = useState({
-    showGreenRes: false,
-    showGreenStore: false,
-    showRewardRes: false,
-    showRewardStore: false,
-    showGarbage: false,
-    showClothes: false,
-    showDisposal: false,
-    showTheft: false,
-    showAccident: false,
+  let [hidePins, setHidePins] = useState({
+    hideGreenRes: false,
+    hideGreenStore: false,
+    hideRewardRes: false,
+    hideGarbage: false,
+    hideClothes: false,
+    hideDisposal: false,
+    hideTheft: false,
+    hideAccident: false,
   });
 
   // define views
@@ -87,8 +84,6 @@ function App() {
       setGreenStoreRowData={setGreenStoreRowData}
       setRewardResLoc={setRewardResLoc}
       setRewardResRowData={setRewardResRowData}
-      setRewardStoreLoc={setRewardStoreLoc}
-      setRewardStoreRowData={setRewardStoreRowData}
       setGarbageRowData={setGarbageRowData}
       setGarbageLoc={setGarbageLoc}
       setClothesRowData={setClothesRowData}
@@ -110,26 +105,27 @@ function App() {
   );
   let ecoView = (
     <Eco
+      showContent={showContent}
       greenResRowData={greenResRowData}
       greenStoreRowData={greenStoreRowData}
       rewardResRowData={rewardResRowData}
-      rewardStoreRowData={rewardStoreRowData}
       garbageRowData={garbageRowData}
       clothesRowData={clothesRowData}
       disposalRowData={disposalRowData}
       distangeRange={distanceRange}
-      showPins={showPins}
-      setShowPins={setShowPins}
+      hidePins={hidePins}
+      setHidePins={setHidePins}
     />
   );
   let safetyView = (
     <Safety
+      showContent={showContent}
       theftRowData={theftRowData}
       accidentRowData={accidentRowData}
       distanceRange={distanceRange}
       timeRange={timeRange}
-      showPins={showPins}
-      setShowPins={setShowPins}
+      hidePins={hidePins}
+      setHidePins={setHidePins}
     />
   );
   let mapView = (
@@ -139,14 +135,13 @@ function App() {
       greenResLoc={greenResLoc}
       greenStoreLoc={greenStoreLoc}
       rewardResLoc={rewardResLoc}
-      rewardStoreLoc={rewardStoreLoc}
       garbageLoc={garbageLoc}
       clothesLoc={clothesLoc}
       disposalLoc={disposalLoc}
       theftLoc={theftLoc}
       accidentLoc={accidentLoc}
       distanceRange={distanceRange}
-      showPins={showPins}
+      hidePins={hidePins}
     />
   );
 

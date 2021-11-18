@@ -1,5 +1,7 @@
+const baseUrl = "http://localhost:8000/api/environment/";
+
 let fetchAQI = (lat, lng, setAQIRowData) => {
-  fetch("http://localhost:8000/api/environment/air-quality", {
+  fetch(baseUrl + "air-quality", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -31,7 +33,7 @@ let fetchAQI = (lat, lng, setAQIRowData) => {
 };
 
 let fetchUV = (lat, lng, setUVRowData) => {
-  fetch("http://localhost:8000/api/environment/uv", {
+  fetch(baseUrl + "uv", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -78,7 +80,7 @@ let fetchUV = (lat, lng, setUVRowData) => {
 };
 
 let fetchWQI = (lat, lng, setWQIRowData) => {
-  fetch("http://localhost:8000/api/environment/water-quality", {
+  fetch(baseUrl + "water-quality", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
