@@ -18,7 +18,7 @@
 ![](https://i.imgur.com/3GZX8bg.jpg) -->
 
 <div style="text-align: center">
-    <img src="https://i.imgur.com/IDnynRR.jpg" width="300" /> <img src="https://i.imgur.com/3GZX8bg.jpg" width="450"/>
+    <img src="https://i.imgur.com/IDnynRR.jpg" width="300"  /> <img src="https://i.imgur.com/3GZX8bg.jpg" width="450"/>
 </div>
 
 ### Run Backend
