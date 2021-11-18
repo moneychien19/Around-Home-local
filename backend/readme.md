@@ -9,6 +9,7 @@
 - [x] Add more accident data
 - [x] Perhaps add a date range filter? 
 - [ ] Update AQI dataset dynamically (currently the observation was made at 2021-11-09 16:00)
+- [x] 搜尋最近的垃圾車停靠地點跟舊衣回收箱地點
 
 ## How to run the backend server
 
@@ -291,7 +292,7 @@ POST
 #### Argument:
 - `latitude` (required) 
 - `longitude` (required)
-- `distance` (optional, unit: meter): the default value is 1000 meters.
+- `number` (optional, default: 5) of recycle bins to be retrieved.
 
 #### Response
 - `cid`
@@ -325,7 +326,7 @@ POST
 #### Argument:
 - `latitude` (required) 
 - `longitude` (required)
-- `distance` (optional, unit: meter): the default value is 1000 meters.
+- `number` (optional, default: 5) of locations to be retrieved where garbage truck stops by.
 
 #### Response
 - `tadd`
@@ -387,7 +388,7 @@ POST
 Return stores that offer discount with specified requirements within the query distance.
 
 #### Path
-/api/environment/reward-store
+/api/eco/reward-store
 
 #### Method
 POST

@@ -22,7 +22,7 @@ def air_quality(request):
     else:
         longitude, latitude = response
 
-    closest_site = utils.get_closest_object(AirSite.objects.values(), latitude, longitude)
+    closest_site = utils.get_closest_objects(AirSite.objects.values(), 1, latitude, longitude)[0]
     obs_list = get_observation_list(closest_site['site_id'], AirQuality.objects.values())
 
     if len(obs_list) == 0:
@@ -47,7 +47,7 @@ def uv(request):
     else:
         longitude, latitude = response
 
-    closest_site = utils.get_closest_object(UVSite.objects.values(), latitude, longitude)
+    closest_site = utils.get_closest_objects(UVSite.objects.values(), 1, latitude, longitude)[0]
     obs_list = get_observation_list(closest_site['site_id'], UV.objects.values().order_by('utime'))
 
     if len(obs_list) == 0:

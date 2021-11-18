@@ -15,9 +15,8 @@ def clothes_recycle(request):
     else:
         longitude, latitude = response
 
-    # Set default distance to be 1000 meters
-    distance = float(request.data['distance']) if 'distance' in request.data else 1000
-    recycle_list = utils.get_objects_around(ClothesRecycle.objects.values(), distance, latitude, longitude)
+    number = int(request.data['number']) if 'number' in request.data else 5
+    recycle_list = utils.get_closest_objects(ClothesRecycle.objects.values(), number, latitude, longitude)
 
     # Add agency name and remove group id
     agencies = RecycleAgency.objects.values().order_by('group_id')
@@ -37,9 +36,8 @@ def garbage_truck(request):
     else:
         longitude, latitude = response
 
-    # Set default distance to be 1000 meters
-    distance = float(request.data['distance']) if 'distance' in request.data else 1000
-    locations = utils.get_objects_around(GarbageTruck.objects.values().order_by('license_id'), distance, latitude, longitude)
+    number = int(request.data['number']) if 'number' in request.data else 5
+    locations = utils.get_closest_objects(GarbageTruck.objects.values().order_by('license_id'), number, latitude, longitude)
 
     return Response(locations, status=status.HTTP_200_OK)
 

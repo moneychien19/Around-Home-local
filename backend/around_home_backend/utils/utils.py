@@ -39,18 +39,10 @@ def get_objects_lately(objects, time_start, time_end):
     return objects_lately
 
 
-def get_closest_object(objects, latitude, longitude):
-    min_distance = -1
-    closest_object = None
-
-    for obj in objects:
-        dis = get_distance_from_lat_lng(latitude, longitude, 
-                                        float(obj['latitude']), float(obj['longitude']))
-        if min_distance == -1 or dis < min_distance:
-            min_distance = dis
-            closest_object = obj
-
-    return closest_object
+def get_closest_objects(objects, n, latitude, longitude):
+    sorted_objects = sorted(objects, key=lambda obj: get_distance_from_lat_lng(latitude, longitude, 
+                                        float(obj['latitude']), float(obj['longitude'])))
+    return sorted_objects[:n]
 
 
 def get_lat_lng(request):
