@@ -18,10 +18,17 @@ function App() {
   let [timeRange, setTimeRange] = useState("6");
 
   // data fetching
-  let [AQIRowData, setAQIRowData] = useState(["空氣品質指標AQI", "", "", ""]);
-  let [UVRowData, setUVRowData] = useState(["紫外線指數", "", "", ""]);
+  let [AQIRowData, setAQIRowData] = useState([
+    "空氣品質指標AQI",
+    "",
+    "",
+    "",
+    "",
+  ]);
+  let [UVRowData, setUVRowData] = useState(["紫外線指數", "", "", "", ""]);
   let [WQIRowData, setWQIRowData] = useState([
     "水庫水質卡爾森指數",
+    "",
     "",
     "",
     "",

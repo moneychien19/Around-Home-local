@@ -24,9 +24,9 @@ let fetchAQI = (lat, lng, setAQIRowData) => {
       let tempAQI = [
         "空氣品質指標AQI",
         data["scounty"] + "-" + data["sname"],
+        data["published_time"],
         data["aqi"],
         data["status"],
-        data["published_time"],
       ];
       setAQIRowData(tempAQI);
     });
@@ -71,9 +71,9 @@ let fetchUV = (lat, lng, setUVRowData) => {
         data[data.length - 1]["county"] +
           "-" +
           data[data.length - 1]["site_name"],
+        data[data.length - 1]["utime"],
         uvi,
         status,
-        data[data.length - 1]["utime"],
       ];
       setUVRowData(tempUV);
     });
@@ -103,9 +103,9 @@ let fetchWQI = (lat, lng, setWQIRowData) => {
       let tempWQI = [
         "水庫水質卡爾森指數",
         "翡翠水庫",
+        data[data.length - 1]["date"],
         data[data.length - 1]["ctsi"],
         data[data.length - 1]["status"],
-        data[data.length - 1]["date"],
       ];
       setWQIRowData(tempWQI);
     });

@@ -149,6 +149,18 @@ div#root {
     padding: 1.25rem;
   }
   div#environment {
+    .light {
+      width: 0.75rem;
+    }
+    #good {
+      color: #34be82;
+    }
+    #normal {
+      color: #f4a442;
+    }
+    #danger {
+      color: #ff5c58;
+    }
     table {
       thead {
         font-size: 1.25rem;
@@ -172,7 +184,7 @@ div#root {
   div#eco {
     table {
       margin-top: 2.25rem;
-      margin-bottom: 2.4rem;
+      margin-bottom: 2.45rem;
       tr {
         td {
           input[type="checkbox"] {

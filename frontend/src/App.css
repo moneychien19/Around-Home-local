@@ -200,6 +200,22 @@ div#root div.card div.table {
   margin-top: 0.5rem;
 }
 
+div#root div#environment .light {
+  width: 0.75rem;
+}
+
+div#root div#environment #good {
+  color: #34be82;
+}
+
+div#root div#environment #normal {
+  color: #f4a442;
+}
+
+div#root div#environment #danger {
+  color: #ff5c58;
+}
+
 div#root div#environment table thead {
   font-size: 1.25rem;
 }
@@ -216,7 +232,7 @@ div#root div#environment table tbody tr td {
 
 div#root div#eco table {
   margin-top: 2.25rem;
-  margin-bottom: 2.4rem;
+  margin-bottom: 2.45rem;
 }
 
 div#root div#eco table tr td {

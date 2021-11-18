@@ -1,4 +1,12 @@
-## Backend
+# Around Home
+
+輸入台北市範圍內的住家地址，以查詢住家附近的治安及環境品質。
+
+### Contributors
+
+李佳欣、錢紫翎、周敦翔、莊翔安
+
+## Backend & Database
 
 ### Set Your Database
 
@@ -9,8 +17,8 @@
 <!-- ![](https://i.imgur.com/IDnynRR.jpg)
 ![](https://i.imgur.com/3GZX8bg.jpg) -->
 
-<div>
-    <img src="https://i.imgur.com/IDnynRR.jpg" width="150" /> <img src="https://i.imgur.com/3GZX8bg.jpg" width="300"/>
+<div style="text-align: center">
+    <img src="https://i.imgur.com/IDnynRR.jpg" width="300" /> <img src="https://i.imgur.com/3GZX8bg.jpg" width="450"/>
 </div>
 
 ### Run Backend
@@ -23,7 +31,7 @@ cd db1101_midterm/backend
 
 # Activate virtual enviroment
 python -m venv env
-source env/bin/activate
+source env/bin/activate  # or env\Scripts\activate.bat for Windows
 cd around_home_backend
 
 # Install dependencies
@@ -41,6 +49,19 @@ DATABASE_URL=postgres://{Username}:{Password}@127.0.0.1:5432/{DatabaseName}
 ```
 python manage.py runserver
 ```
+
+### API
+
+- /api/safety/accident
+- /api/safety/theft
+- /api/environment/air-quality
+- /api/environment/uv
+- /api/environment/waste-disposal
+- /api/environment/water-quality
+- /api/eco/clothes-recycle
+- /api/eco/garbage-truck
+- /api/eco/green-store
+- /api/eco/reward-store
 
 ## Frontend
 
