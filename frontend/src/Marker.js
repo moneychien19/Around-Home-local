@@ -5,12 +5,17 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Marker = ({ id, content }) => {
   return (
-    <div className="marker">
+    <>
+      <FontAwesomeIcon
+        icon={faMapMarkerAlt}
+        className="marker"
+        id={id}
+        size="3x"
+      />
       <div className="tooltip">
         <h3>{content}</h3>
       </div>
-      <FontAwesomeIcon icon={faMapMarkerAlt} id={id} size="3x" />
-    </div>
+    </>
   );
 };
 

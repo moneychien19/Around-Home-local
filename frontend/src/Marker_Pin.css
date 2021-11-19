@@ -1,11 +1,23 @@
-.marker:hover .tooltip,
-.pin:hover .tooltip {
+.marker,
+.pin {
+  z-index: 20;
+}
+
+.marker:hover + .tooltip {
+  opacity: 0.8;
+  z-index: 30;
+}
+
+.pin:hover + .tooltip {
   opacity: 0.8;
   z-index: 30;
 }
 
 .tooltip {
-  margin-left: 0.5rem;
+  z-index: -1;
+  position: absolute;
+  left: 1.25rem;
+  bottom: 0.2rem;
   width: 14rem;
   background-color: black;
   color: white;

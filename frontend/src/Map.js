@@ -82,7 +82,7 @@ function Map({
                   id="garbagePin"
                   title="垃圾車停靠點"
                   add={aLoc[2]}
-                  name={aLoc[3]}
+                  name={"離開時間：" + aLoc[3]}
                 />
               ))}
           {!clothesLoc | hidePins["hideClothes"]
