@@ -8,6 +8,9 @@ import Safety from "./Safety";
 import Map from "./Map";
 
 function App() {
+  // input address
+  let [address, setAddress] = useState("");
+
   // determine the show block
   let [showContent, setShowContent] = useState([false, false, false]);
 
@@ -72,6 +75,8 @@ function App() {
   // define views
   let formView = (
     <Form
+      address={address}
+      setAddress={setAddress}
       showContent={showContent}
       setShowContent={setShowContent}
       lat={lat}
@@ -137,6 +142,7 @@ function App() {
   );
   let mapView = (
     <Map
+      address={address}
       lat={lat}
       lng={lng}
       greenResLoc={greenResLoc}

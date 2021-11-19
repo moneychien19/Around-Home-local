@@ -32,7 +32,13 @@ let fetchTheft = (lat, lng, distance, month, setTheftRowData, setTheftLoc) => {
       let tempLoc = [];
       for (let i = 0; i < data.length; i++) {
         tempTheft[data[i]["theft_type"]] += 1;
-        tempLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+        tempLoc.push([
+          data[i]["latitude"],
+          data[i]["longitude"],
+          data[i]["theft_add"],
+          data[i]["date"],
+          data[i]["theft_type"],
+        ]);
       }
       setTheftRowData(tempTheft);
       setTheftLoc(tempLoc);
@@ -73,7 +79,12 @@ let fetchAccident = (
       let tempLoc = [];
       setAccidentRowData(tempAccident);
       for (let i = 0; i < data.length; i++) {
-        tempLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+        tempLoc.push([
+          data[i]["latitude"],
+          data[i]["longitude"],
+          data[i]["aadd"],
+          data[i]["date"],
+        ]);
       }
       setAccidentLoc(tempLoc);
     });

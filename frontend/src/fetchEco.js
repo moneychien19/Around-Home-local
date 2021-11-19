@@ -34,10 +34,20 @@ let fetchGreen = (
       let tempStoreLoc = [];
       for (let i = 0; i < data.length; i++) {
         if (data[i]["store_type_id"] === 1) {
-          tempResLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+          tempResLoc.push([
+            data[i]["latitude"],
+            data[i]["longitude"],
+            data[i]["gsadd"],
+            data[i]["gsname"],
+          ]);
         }
         if (data[i]["store_type_id"] === 2) {
-          tempStoreLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+          tempStoreLoc.push([
+            data[i]["latitude"],
+            data[i]["longitude"],
+            data[i]["gsadd"],
+            data[i]["gsname"],
+          ]);
         }
       }
       setGreenResLoc(tempResLoc);
@@ -78,7 +88,12 @@ let fetchReward = (
       let tempResLoc = [];
       for (let i = 0; i < data.length; i++) {
         if (data[i]["store_type_id"] === 1) {
-          tempResLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+          tempResLoc.push([
+            data[i]["latitude"],
+            data[i]["longitude"],
+            data[i]["rname"],
+            data[i]["discount"],
+          ]);
         }
       }
       setRewardResLoc(tempResLoc);
@@ -113,7 +128,12 @@ let fetchGarbage = (lat, lng, distance, setGarbageRowData, setGarbageLoc) => {
 
       let tempLoc = [];
       for (let i = 0; i < data.length; i++) {
-        tempLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+        tempLoc.push([
+          data[i]["latitude"],
+          data[i]["longitude"],
+          data[i]["tadd"],
+          data[i]["leaving"],
+        ]);
       }
       setGarbageLoc(tempLoc);
     });
@@ -145,7 +165,12 @@ let fetchClothes = (lat, lng, distance, setClothesRowData, setClothesLoc) => {
       setClothesRowData(len);
       let tempLoc = [];
       for (let i = 0; i < data.length; i++) {
-        tempLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+        tempLoc.push([
+          data[i]["latitude"],
+          data[i]["longitude"],
+          data[i]["cadd"],
+          data[i]["agency_name"],
+        ]);
       }
       setClothesLoc(tempLoc);
     });
@@ -183,7 +208,12 @@ let fetchDisposal = (
       setDisposalRowData(len);
       let tempLoc = [];
       for (let i = 0; i < data.length; i++) {
-        tempLoc.push([data[i]["latitude"], data[i]["longitude"]]);
+        tempLoc.push([
+          data[i]["latitude"],
+          data[i]["longitude"],
+          data[i]["wadd"],
+          data[i]["wname"],
+        ]);
       }
       setDisposalLoc(tempLoc);
     });

@@ -1,28 +1,35 @@
-.marker:hover .tooltip,
-.pin:hover .tooltip {
-  opacity: 0.8;
-  z-index: 30;
+// div.marker,
+// div.pin {
+//   position: relative;
+//   z-index: 20;
+// }
+.marker:hover,
+.pin:hover {
+  .tooltip {
+    opacity: 0.8;
+    z-index: 30;
+  }
 }
 
 .tooltip {
+  //   position: absolute;
+  //   left: 1.25rem;
+  //   bottom: 0.25rem;
   margin-left: 0.5rem;
   width: 14rem;
   background-color: black;
   color: white;
   opacity: 0;
-  -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   border-radius: 0.25rem;
   padding: 0.5rem;
-}
-
-.tooltip h3 {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.tooltip p {
-  font-size: 0.5rem;
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  p {
+    font-size: 0.5rem;
+  }
 }
 
 #query {
@@ -45,4 +52,3 @@
 #accidentPin {
   color: #ba55d3;
 }
-/*# sourceMappingURL=Marker_Pin.css.map */

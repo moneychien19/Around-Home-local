@@ -12,6 +12,8 @@ import {
 import { fetchTheft, fetchAccident } from "./fetchSafety";
 
 const Form = ({
+  address,
+  setAddress,
   showContent,
   setShowContent,
   lat,
@@ -42,7 +44,6 @@ const Form = ({
   setTheftLoc,
   setAccidentLoc,
 }) => {
-  let [address, setAddress] = useState("");
   let [url, setUrl] = useState("");
   const [error, setError] = useState(null);
 
