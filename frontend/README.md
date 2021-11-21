@@ -1,5 +1,3 @@
-### Contents
-
 ### Framework
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Its framework is as following.
