@@ -127,7 +127,7 @@ const Form = ({
     // get "environment" data and set
     fetchAQI(lat, lng, setAQIRowData);
     fetchUV(lat, lng, setUVRowData);
-    fetchWQI(lat, lng, setWQIRowData);
+    // fetchWQI(lat, lng, setWQIRowData);
 
     // get "eco" data and set
     fetchGreen(

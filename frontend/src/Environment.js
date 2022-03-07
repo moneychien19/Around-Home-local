@@ -58,24 +58,6 @@ const Environment = ({ AQIRowData, UVRowData, WQIRowData }) => {
                   <td>{anItem}</td>
                 ))}
               </tr>
-              <tr>
-                <td>
-                  <FontAwesomeIcon
-                    className="light"
-                    icon={faCircle}
-                    id={
-                      WQIRowData[4] === "貧養"
-                        ? "good"
-                        : WQIRowData[4] === "普養"
-                        ? "normal"
-                        : "danger"
-                    }
-                  />
-                </td>
-                {WQIRowData.map((anItem) => (
-                  <td>{anItem}</td>
-                ))}
-              </tr>
             </tbody>
           </table>
         </div>

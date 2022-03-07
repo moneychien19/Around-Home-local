@@ -9,7 +9,7 @@ import Map from "./Map";
 
 function App() {
   // input address
-  let [address, setAddress] = useState("");
+  let [address, setAddress] = useState("國立台灣大學");
 
   // determine the show block
   let [showContent, setShowContent] = useState([false, false, false]);

@@ -100,14 +100,16 @@ let fetchWQI = (lat, lng, setWQIRowData) => {
       console.log("水庫水質");
       console.log(data);
 
-      let tempWQI = [
-        "水庫水質卡爾森指數",
-        "翡翠水庫",
-        data[data.length - 1]["date"],
-        data[data.length - 1]["ctsi"],
-        data[data.length - 1]["status"],
-      ];
-      setWQIRowData(tempWQI);
+      if (data.length !== 0) {
+        let tempWQI = [
+          "水庫水質卡爾森指數",
+          "翡翠水庫",
+          data[data.length - 1]["date"],
+          data[data.length - 1]["ctsi"],
+          data[data.length - 1]["status"],
+        ];
+        setWQIRowData(tempWQI);
+      }
     });
 };
 

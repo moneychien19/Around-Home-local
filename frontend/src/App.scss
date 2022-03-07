@@ -5,12 +5,15 @@
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 div#root {
+  background-color: #fafafa;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem 0;
   form.search {
-    background-color: #f6eabe;
+    // background-color: #f6eabe;
+    // background-color: #fff4e0;
+    border: 2px solid #ffe277;
     border-radius: 1rem;
     padding: 1rem;
     width: 60vw;
@@ -29,10 +32,16 @@ div#root {
       input#address {
         width: 25rem;
         border: #c6c6c6 solid 2px;
+        // border: #ffdd7e solid 2px;
         border-radius: 0.25rem;
         height: 2rem;
         font-size: 1.25rem;
         padding: 0 0.25rem;
+        &:focus,
+        &:hover {
+          border: #ffdd7e solid 2px;
+          outline: none;
+        }
       }
     }
     div.conditionTags {
@@ -53,16 +62,17 @@ div#root {
         color: #8b8b8b;
         background-color: #ffffff;
         &:hover {
-          background-color: #eb9c23;
-          color: white;
-          border: #eb9c23 solid 2px;
+          background-color: #ffcd3c;
+          color: black;
+          border: #ffcd3c solid 2px;
           cursor: pointer;
         }
       }
       button.checked {
-        background-color: #eb9c23;
-        color: white;
-        border: #eb9c23 solid 2px;
+        // background-color: #eb9c23;
+        background-color: #ffcd3c;
+        color: black;
+        border: #ffcd3c solid 2px;
         cursor: pointer;
       }
     }
@@ -74,7 +84,6 @@ div#root {
       label {
         font-size: 1.25rem;
         padding-right: 1rem;
-        // padding-top: 0.2rem;
       }
       select {
         font-size: 1.1rem;
@@ -82,6 +91,11 @@ div#root {
         padding: 0.2rem 0.4rem;
         border: #c6c6c6 solid 2px;
         margin-right: 3rem;
+        &:focus,
+        &:hover {
+          border: #ffdd7e solid 2px;
+          outline: none;
+        }
       }
     }
     button.submit {
@@ -96,9 +110,9 @@ div#root {
       color: #8b8b8b;
       background-color: white;
       &:hover {
-        background-color: #eb9c23;
-        color: white;
-        border: #eb9c23 solid 2px;
+        background-color: #ffcd3c;
+        color: black;
+        border: #ffcd3c solid 2px;
         cursor: pointer;
       }
     }
@@ -113,11 +127,11 @@ div#root {
     width: 60vw;
     display: flex;
     div.left {
-      width: 55%;
+      width: 52%;
       padding-right: 1rem;
     }
     div.right {
-      width: 45%;
+      width: 48%;
     }
   }
 
@@ -132,7 +146,7 @@ div#root {
       p {
         padding-top: 0.55rem;
         padding-left: 0.7rem;
-        color: #ad91a3;
+        color: #b4846c;
       }
     }
 
@@ -143,7 +157,8 @@ div#root {
       margin-top: 0.5rem;
     }
     width: 100%;
-    border: 4px solid #f6d7a7;
+    // border: 2px solid #f6d7a7;
+    border: 2px solid #ffe277;
     border-radius: 1rem;
     margin-top: 1rem;
     padding: 1.25rem;
@@ -241,7 +256,7 @@ div#root {
   }
   div#map {
     width: 100%;
-    height: 66vh;
+    height: 65vh;
     border-radius: 1rem;
     padding: 0;
   }

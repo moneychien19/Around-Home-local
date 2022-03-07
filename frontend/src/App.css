@@ -7,6 +7,7 @@
 }
 
 div#root {
+  background-color: #fafafa;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -21,7 +22,7 @@ div#root {
 }
 
 div#root form.search {
-  background-color: #f6eabe;
+  border: 2px solid #ffe277;
   border-radius: 1rem;
   padding: 1rem;
   width: 60vw;
@@ -56,6 +57,11 @@ div#root form.search div.addressTags input#address {
   padding: 0 0.25rem;
 }
 
+div#root form.search div.addressTags input#address:focus, div#root form.search div.addressTags input#address:hover {
+  border: #ffdd7e solid 2px;
+  outline: none;
+}
+
 div#root form.search div.conditionTags {
   position: absolute;
   left: 7rem;
@@ -79,16 +85,16 @@ div#root form.search div.conditionTags button.condition {
 }
 
 div#root form.search div.conditionTags button.condition:hover {
-  background-color: #eb9c23;
-  color: white;
-  border: #eb9c23 solid 2px;
+  background-color: #ffcd3c;
+  color: black;
+  border: #ffcd3c solid 2px;
   cursor: pointer;
 }
 
 div#root form.search div.conditionTags button.checked {
-  background-color: #eb9c23;
-  color: white;
-  border: #eb9c23 solid 2px;
+  background-color: #ffcd3c;
+  color: black;
+  border: #ffcd3c solid 2px;
   cursor: pointer;
 }
 
@@ -114,6 +120,11 @@ div#root form.search div.range select {
   margin-right: 3rem;
 }
 
+div#root form.search div.range select:focus, div#root form.search div.range select:hover {
+  border: #ffdd7e solid 2px;
+  outline: none;
+}
+
 div#root form.search button.submit {
   position: absolute;
   right: 2rem;
@@ -128,9 +139,9 @@ div#root form.search button.submit {
 }
 
 div#root form.search button.submit:hover {
-  background-color: #eb9c23;
-  color: white;
-  border: #eb9c23 solid 2px;
+  background-color: #ffcd3c;
+  color: black;
+  border: #ffcd3c solid 2px;
   cursor: pointer;
 }
 
@@ -152,17 +163,17 @@ div#root div.twoSide {
 }
 
 div#root div.twoSide div.left {
-  width: 55%;
+  width: 52%;
   padding-right: 1rem;
 }
 
 div#root div.twoSide div.right {
-  width: 45%;
+  width: 48%;
 }
 
 div#root div.card {
   width: 100%;
-  border: 4px solid #f6d7a7;
+  border: 2px solid #ffe277;
   border-radius: 1rem;
   margin-top: 1rem;
   padding: 1.25rem;
@@ -183,7 +194,7 @@ div#root div.card div.title h3 {
 div#root div.card div.title p {
   padding-top: 0.55rem;
   padding-left: 0.7rem;
-  color: #ad91a3;
+  color: #b4846c;
 }
 
 div#root div.card div.table {
@@ -296,7 +307,7 @@ div#root div#safety table tr td {
 
 div#root div#map {
   width: 100%;
-  height: 66vh;
+  height: 65vh;
   border-radius: 1rem;
   padding: 0;
 }
