@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import API_KEY from "./key";
-import { fetchAQI, fetchUV, fetchWQI } from "./fetchEnvironment";
+import API_KEY from "../key";
+import { fetchAQI, fetchUV } from "../fetch/fetchEnvironment";
 import {
   fetchGreen,
   fetchGarbage,
   fetchClothes,
   fetchDisposal,
   fetchReward,
-} from "./fetchEco";
-import { fetchTheft, fetchAccident } from "./fetchSafety";
+} from "../fetch/fetchEco";
+import { fetchTheft, fetchAccident } from "../fetch/fetchSafety";
 
 const Form = ({
   address,

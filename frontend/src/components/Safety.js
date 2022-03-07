@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { distanceMapping, timeMapping } from "./rangeMapping";
+import { distanceMapping, timeMapping } from "../rangeMapping";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import "./Marker_Pin.css";

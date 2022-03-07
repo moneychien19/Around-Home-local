@@ -1,11 +1,11 @@
-import react, { useState } from "react";
-import Form from "./Form";
-import logo from "./logo.svg";
+import { useState } from "react";
+import Form from "../components/Form";
+import logo from "../logo.svg";
 import "./App.css";
-import Environment from "./Environment";
-import Eco from "./Eco";
-import Safety from "./Safety";
-import Map from "./Map";
+import Environment from "../components/Environment";
+import Eco from "../components/Eco";
+import Safety from "../components/Safety";
+import Map from "../components/Map";
 
 function App() {
   // input address

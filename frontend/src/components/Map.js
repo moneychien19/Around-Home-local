@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-import API_KEY from "./key";
+import API_KEY from "../key";
 import Marker from "./Marker";
 import Pin from "./Pin";
 
