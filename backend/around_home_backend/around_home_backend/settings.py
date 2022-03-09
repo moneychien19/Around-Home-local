@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'around_home_backend.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "around_home_db",
+        "NAME": "AroundHome",
         "USER": "postgres",
-        "PASSWORD": "JXYg8pMSlYq0oxsu4uPO",
-        "HOST": "around-home-db.cnvztdco9aoh.us-east-1.rds.amazonaws.com",
+        "PASSWORD": "P2Z1lN9cGGV4FG2KZGcn",
+        "HOST": "around-home.csjbmvomlwqb.ap-northeast-1.rds.amazonaws.com",
         "PORT": "5432"
     }
 }
