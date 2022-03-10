@@ -1,4 +1,4 @@
-const baseUrl = "http://52.192.204.99:8000/api/eco/";
+const baseUrl = "http://localhost:8000/api/eco/";
 
 let fetchGreen = (
   lat,
@@ -183,7 +183,7 @@ let fetchDisposal = (
   setDisposalRowData,
   setDisposalLoc
 ) => {
-  fetch("http://52.192.204.99:8000/api/environment/waste-disposal", {
+  fetch("http://localhost/api/environment/waste-disposal", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

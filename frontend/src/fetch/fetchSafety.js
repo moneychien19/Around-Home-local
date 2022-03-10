@@ -1,5 +1,5 @@
 let fetchTheft = (lat, lng, distance, month, setTheftRowData, setTheftLoc) => {
-  fetch("http://52.192.204.99:8000/api/safety/theft", {
+  fetch("http://localhost:8000/api/safety/theft", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ let fetchAccident = (
   setAccidentRowData,
   setAccidentLoc
 ) => {
-  fetch("http://52.192.204.99:8000/api/safety/accident", {
+  fetch("http://localhost:8000/api/safety/accident", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
