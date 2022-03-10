@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8000/api/environment/";
+const baseUrl = "http://52.192.204.99:8000/api/environment/";
 
 let fetchAQI = (lat, lng, setAQIRowData) => {
   fetch(baseUrl + "air-quality", {
