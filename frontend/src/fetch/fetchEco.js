@@ -183,7 +183,7 @@ let fetchDisposal = (
   setDisposalRowData,
   setDisposalLoc
 ) => {
-  fetch("http://localhost/api/environment/waste-disposal", {
+  fetch("http://localhost:8000/api/environment/waste-disposal", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

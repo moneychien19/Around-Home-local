@@ -31,40 +31,24 @@
 
 ## 若你想在本機啟動此網頁
 
-### 設定資料庫
-
-1. 安裝並啟動 [pgAdmin](https://www.pgadmin.org/).
-2. 建立名為 `AroundHome` 的資料庫
-3. 將 SQL 備份檔 `backend/around_home_backend/data/AroundHome_backup.sql` restore 至上述資料庫
-
-<div style="text-align: center">
-    <img src="https://i.imgur.com/IDnynRR.jpg" width="300"  /> <img src="https://i.imgur.com/3GZX8bg.jpg" width="450"/>
-</div>
-
 ### 啟動後端
 
-1. 執行以下指令
+1. 執行以下指令以設定環境
 
 ```
-git clone https://github.com/moneychien19/db1101_midterm.git
-cd db1101_midterm/backend
+git clone https://github.com/moneychien19/Around-Home-local.git
+cd Around-Home-local/backend
 
 # 啟動虛擬環境
 python -m venv env
-source env/bin/activate  # or env\Scripts\activate.bat for Windows
+env\Scripts\activate.bat  # or source env/bin/activate for iOS
 cd around_home_backend
 
 # 安裝所需的套件
 pip install -r requirements.txt
 ```
 
-2. 修改 `backend/around_home_backend/.env` 檔案的最後一行，在對應的位置填入你在 PostgreSQL 中的使用者名稱及密碼
-
-```
-DATABASE_URL=postgres://{Username}:{Password}@127.0.0.1:5432/AroundHome
-```
-
-3. 執行以下指令以啟動後端
+2. 執行以下指令以啟動後端
 
 ```
 python manage.py runserver
@@ -84,8 +68,9 @@ export default API_KEY;
 執行以下指令，
 
 ```
+cd frontend
 yarn
 yarn start
 ```
 
-網頁就會在 [local host in port 3000](http://localhost:3000) 中啟動
+網頁就會在 http://localhost:3000 上啟動
