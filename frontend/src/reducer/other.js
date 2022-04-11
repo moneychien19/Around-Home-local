@@ -9,11 +9,9 @@ const initState = {
   },
 };
 
-const otherReducer = (state = initState, action) => {
+export const otherReducer = (state = initState, action) => {
   switch (action.type) {
     default:
       return state;
   }
 };
-
-export default otherReducer;
