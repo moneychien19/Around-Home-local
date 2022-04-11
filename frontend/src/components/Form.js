@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { mutateAddress, mutateLat, mutateLng } from "../action/input";
 import axios from "axios";
 import API_KEY from "../key";
 import { fetchAQI, fetchUV } from "../fetch/fetchEnvironment";
@@ -12,14 +14,8 @@ import {
 import { fetchTheft, fetchAccident } from "../fetch/fetchSafety";
 
 const Form = ({
-  address,
-  setAddress,
   showContent,
   setShowContent,
-  lat,
-  setLat,
-  lng,
-  setLng,
   distanceRange,
   setDistanceRange,
   timeRange,
@@ -44,12 +40,12 @@ const Form = ({
   setTheftLoc,
   setAccidentLoc,
 }) => {
-  let [url, setUrl] = useState("");
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const address = useSelector((state) => state.inputReducer.address);
+  const lat = useSelector((state) => state.inputReducer.lat);
+  const lng = useSelector((state) => state.inputReducer.lng);
 
-  const inputHandler = (e) => {
-    setAddress(e.target.value);
-  };
+  const [inputAddress, setInputAddress] = useState(address);
 
   const onclickEnvironment = (e) => {
     e.preventDefault();
@@ -79,16 +75,32 @@ const Form = ({
     }
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    dispatch(mutateAddress(inputAddress));
 
-    // set the url of Google map API
-    setUrl(
-      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-        address +
-        "&key=" +
-        API_KEY
-    );
+    await axios
+      .get(
+        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          inputAddress +
+          "&key=" +
+          API_KEY
+      )
+      .then((res) => {
+        dispatch(
+          mutateLat(
+            res.data["results"][0]["geometry"]["viewport"]["northeast"]["lat"]
+          )
+        );
+        dispatch(
+          mutateLng(
+            res.data["results"][0]["geometry"]["viewport"]["northeast"]["lng"]
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // set the range data
     setDistanceRange(
@@ -99,28 +111,6 @@ const Form = ({
       e.target.parentElement.querySelector("div.range select#timeRange").value
     );
   };
-
-  // when the url changes, fetch the latitude and longitude of the address
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((response) => {
-        setLat(
-          response.data["results"][0]["geometry"]["viewport"]["northeast"][
-            "lat"
-          ]
-        );
-        setLng(
-          response.data["results"][0]["geometry"]["viewport"]["northeast"][
-            "lng"
-          ]
-        );
-      })
-      .catch((err) => {
-        setError(err);
-        console.log(err);
-      });
-  }, [url]);
 
   // when the address or ranges changes, call API
   useEffect(() => {
@@ -171,8 +161,8 @@ const Form = ({
           type="text"
           id="address"
           name="inputAddress"
-          value={address}
-          onChange={inputHandler}
+          value={inputAddress}
+          onChange={(e) => setInputAddress(e.target.value)}
         />
       </div>
       <div className="conditionTags">

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import GoogleMapReact from "google-map-react";
 import API_KEY from "../key";
 import Marker from "./Marker";
@@ -6,9 +7,6 @@ import Pin from "./Pin";
 
 // Map
 function Map({
-  address,
-  lat,
-  lng,
   greenResLoc,
   greenStoreLoc,
   rewardResLoc,
@@ -21,6 +19,9 @@ function Map({
   hidePins,
 }) {
   let apiKey = API_KEY;
+  const address = useSelector((state) => state.inputReducer.address);
+  const lat = useSelector((state) => state.inputReducer.lat);
+  const lng = useSelector((state) => state.inputReducer.lng);
 
   return (
     <div className="card" id="map">

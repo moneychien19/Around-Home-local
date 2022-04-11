@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import Form from "../components/Form";
-import logo from "../logo.svg";
 import "./App.css";
 import Environment from "../components/Environment";
 import Eco from "../components/Eco";
@@ -8,15 +8,9 @@ import Safety from "../components/Safety";
 import Map from "../components/Map";
 
 function App() {
-  // input address
-  let [address, setAddress] = useState("國立台灣大學");
-
   // determine the show block
   let [showContent, setShowContent] = useState([false, false, false]);
 
-  // define the fetching variables
-  let [lat, setLat] = useState(25.014947);
-  let [lng, setLng] = useState(121.535549);
   let [distanceRange, setDistanceRange] = useState("1000");
   let [timeRange, setTimeRange] = useState("6");
 
@@ -75,14 +69,8 @@ function App() {
   // define views
   let formView = (
     <Form
-      address={address}
-      setAddress={setAddress}
       showContent={showContent}
       setShowContent={setShowContent}
-      lat={lat}
-      setLat={setLat}
-      lng={lng}
-      setLng={setLng}
       distanceRange={distanceRange}
       setDistanceRange={setDistanceRange}
       timeRange={timeRange}
@@ -142,9 +130,6 @@ function App() {
   );
   let mapView = (
     <Map
-      address={address}
-      lat={lat}
-      lng={lng}
       greenResLoc={greenResLoc}
       greenStoreLoc={greenStoreLoc}
       rewardResLoc={rewardResLoc}
