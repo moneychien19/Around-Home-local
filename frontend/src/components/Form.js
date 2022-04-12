@@ -8,32 +8,18 @@ import {
   mutateDistanceRange,
   mutateShowContent,
 } from "../action/input";
-import { mutateAQI, mutateUV } from "../action/env";
-import {
-  mutateGreenStore,
-  mutateGreenRes,
-  mutateRewardRes,
-  mutateGarbage,
-  mutateClothes,
-  mutateDisposal,
-} from "../action/eco";
-import {
-  mutateTheftCount,
-  mutateTheftLoc,
-  mutateAccidentCount,
-  mutateAccidentLoc,
-} from "../action/safety";
 import axios from "axios";
 import API_KEY from "../key";
-import { fetchAQI, fetchUV } from "../fetch/fetchEnvironment";
+import { fetchAQI, fetchUV } from "../utils/fetchEnvironment";
 import {
   fetchGreen,
   fetchGarbage,
   fetchClothes,
   fetchDisposal,
   fetchReward,
-} from "../fetch/fetchEco";
-import { fetchTheft, fetchAccident } from "../fetch/fetchSafety";
+} from "../utils/fetchEco";
+import { fetchTheft, fetchAccident } from "../utils/fetchSafety";
+import { dataHandler } from "../utils/dataHandler";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -115,186 +101,36 @@ const Form = () => {
       });
   };
 
-  function AQIDataHandler(resAQI) {
-    let tempAQI = [
-      "空氣品質指標AQI",
-      resAQI["scounty"] + "-" + resAQI["sname"],
-      resAQI["published_time"],
-      resAQI["aqi"],
-      resAQI["status"],
-    ];
-    dispatch(mutateAQI(tempAQI));
-  }
-
-  function UVDataHandler(resUV) {
-    let status = "";
-    let uvi = resUV[resUV.length - 1]["uvi"];
-    if (uvi <= 2) {
-      status = "低量級";
-    } else if ((uvi >= 3) & (uvi <= 5)) {
-      status = "中量級";
-    } else if ((uvi >= 6) & (uvi <= 7)) {
-      status = "高量級";
-    } else if ((uvi >= 8) & (uvi <= 10)) {
-      status = "過量級";
-    } else {
-      status = "危量級";
-    }
-    let tempUV = [
-      "紫外線指數",
-      resUV[resUV.length - 1]["county"] +
-        "-" +
-        resUV[resUV.length - 1]["site_name"],
-      resUV[resUV.length - 1]["utime"],
-      uvi,
-      status,
-    ];
-    dispatch(mutateUV(tempUV));
-  }
-
-  function theftDataHandler(resTheft) {
-    let tempTheft = {
-      自行車竊盜: 0,
-      機車竊盜: 0,
-      汽車竊盜: 0,
-      住宅竊盜: 0,
-      強盜: 0,
-      搶奪: 0,
-    };
-    let tempLoc = [];
-    for (let i = 0; i < resTheft.length || 0; i++) {
-      tempTheft[resTheft[i]["theft_type"]] += 1;
-      tempLoc.push([
-        resTheft[i]["latitude"],
-        resTheft[i]["longitude"],
-        resTheft[i]["theft_add"],
-        resTheft[i]["date"],
-        resTheft[i]["theft_type"],
-      ]);
-    }
-    dispatch(mutateTheftCount(tempTheft));
-    dispatch(mutateTheftLoc(tempLoc));
-  }
-
-  function accidentDataHandler(resAccident) {
-    let tempAccident = { 交通事故: resAccident.length || 0 };
-    let tempLoc = [];
-    for (let i = 0; i < resAccident.length || 0; i++) {
-      tempLoc.push([
-        resAccident[i]["latitude"],
-        resAccident[i]["longitude"],
-        resAccident[i]["aadd"],
-        resAccident[i]["date"],
-      ]);
-    }
-    dispatch(mutateAccidentCount(tempAccident));
-    dispatch(mutateAccidentLoc(tempLoc));
-  }
-
-  function greenHandler(resGreen) {
-    let tempResLoc = [];
-    let tempStoreLoc = [];
-    for (let i = 0; i < resGreen.length || 0; i++) {
-      if (resGreen[i]["store_type_id"] === 1) {
-        tempResLoc.push([
-          resGreen[i]["latitude"],
-          resGreen[i]["longitude"],
-          resGreen[i]["gsadd"],
-          resGreen[i]["gsname"],
-        ]);
-      }
-      if (resGreen[i]["store_type_id"] === 2) {
-        tempStoreLoc.push([
-          resGreen[i]["latitude"],
-          resGreen[i]["longitude"],
-          resGreen[i]["gsadd"],
-          resGreen[i]["gsname"],
-        ]);
-      }
-    }
-    dispatch(mutateGreenRes(tempResLoc));
-    dispatch(mutateGreenStore(tempStoreLoc));
-  }
-
-  function rewardHandler(resReward) {
-    let tempResLoc = [];
-    for (let i = 0; i < resReward.length || 0; i++) {
-      if (resReward[i]["store_type_id"] === 1) {
-        tempResLoc.push([
-          resReward[i]["latitude"],
-          resReward[i]["longitude"],
-          resReward[i]["rname"],
-          resReward[i]["discount"],
-        ]);
-      }
-    }
-    dispatch(mutateRewardRes(tempResLoc));
-  }
-
-  function garbageHandler(resGarbage) {
-    let tempLoc = [];
-    for (let i = 0; i < resGarbage.length || 0; i++) {
-      tempLoc.push([
-        resGarbage[i]["latitude"],
-        resGarbage[i]["longitude"],
-        resGarbage[i]["tadd"],
-        resGarbage[i]["leaving"],
-      ]);
-    }
-    dispatch(mutateGarbage(tempLoc));
-  }
-
-  function clothesHandler(resClothes) {
-    let tempLoc = [];
-    for (let i = 0; i < resClothes.length || 0; i++) {
-      tempLoc.push([
-        resClothes[i]["latitude"],
-        resClothes[i]["longitude"],
-        resClothes[i]["cadd"],
-        resClothes[i]["agency_name"],
-      ]);
-    }
-    dispatch(mutateClothes(tempLoc));
-  }
-
-  function disposalHandler(resDisposal) {
-    let tempLoc = [];
-    for (let i = 0; i < resDisposal.length || 0; i++) {
-      tempLoc.push([
-        resDisposal[i]["latitude"],
-        resDisposal[i]["longitude"],
-        resDisposal[i]["wadd"],
-        resDisposal[i]["wname"],
-      ]);
-    }
-    dispatch(mutateDisposal(tempLoc));
-  }
-
   // when the address or ranges changes, call API
   useEffect(async () => {
-    // get "env" data and set
+    // get "env" data
     let resAQI = await fetchAQI(lat, lng);
     let resUV = await fetchUV(lat, lng);
-    AQIDataHandler(resAQI);
-    UVDataHandler(resUV);
 
-    // get "eco" data and set
+    // get "eco" data
     let resGreen = await fetchGreen(lat, lng, distanceRange);
     let resReward = await fetchReward(lat, lng, distanceRange);
     let resGarbage = await fetchGarbage(lat, lng, distanceRange);
     let resClothes = await fetchClothes(lat, lng, distanceRange);
     let resDisposal = await fetchDisposal(lat, lng, distanceRange);
-    greenHandler(resGreen);
-    rewardHandler(resReward);
-    garbageHandler(resGarbage);
-    clothesHandler(resClothes);
-    disposalHandler(resDisposal);
 
-    // get "safety" data and set
+    // get "safety" data
     let resTheft = await fetchTheft(lat, lng, distanceRange, timeRange);
     let resAccident = await fetchAccident(lat, lng, distanceRange, timeRange);
-    theftDataHandler(resTheft);
-    accidentDataHandler(resAccident);
+
+    // integrate the data and put in the handler
+    let fetchData = {
+      resAQI: resAQI,
+      resUV: resUV,
+      resGreen: resGreen,
+      resReward: resReward,
+      resGarbage: resGarbage,
+      resClothes: resClothes,
+      resDisposal: resDisposal,
+      resTheft: resTheft,
+      resAccident: resAccident,
+    };
+    dataHandler(fetchData, dispatch);
   }, [lat, lng, timeRange, distanceRange]);
 
   return (
