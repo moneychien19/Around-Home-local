@@ -1,21 +1,25 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { distanceMapping } from "../rangeMapping";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import "./Marker_Pin.css";
 
 const Eco = ({
-  showContent,
   greenResRowData,
   greenStoreRowData,
   rewardResRowData,
   garbageRowData,
   clothesRowData,
   disposalRowData,
-  distangeRange,
   hidePins,
   setHidePins,
 }) => {
+  const showContent = useSelector((state) => state.inputReducer.showContent);
+  const distanceRange = useSelector(
+    (state) => state.inputReducer.distanceRange
+  );
+
   useEffect(() => {
     document.querySelectorAll("input.pinIcon").forEach((el) => {
       if (hidePins[el.id] === true) {
@@ -40,7 +44,7 @@ const Eco = ({
     <div className="card" id="eco">
       <div className="title">
         <h3>環保</h3>
-        <p>方圓{distanceMapping(distangeRange)}內的...</p>
+        <p>方圓{distanceMapping(distanceRange)}內的...</p>
       </div>
       <div className="table">
         <table>

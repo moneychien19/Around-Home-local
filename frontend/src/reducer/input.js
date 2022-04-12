@@ -3,6 +3,9 @@ const initState = {
   showContent: [false, false, false],
   lat: 25.014947,
   lng: 121.535549,
+  timeRange: "6",
+  distanceRange: "1000",
+  showContent: [false, false, false],
 };
 
 export const inputReducer = (state = initState, action) => {
@@ -21,6 +24,21 @@ export const inputReducer = (state = initState, action) => {
       return {
         ...state,
         lng: action.payload.lng,
+      };
+    case "MUTATE_TIMERANGE":
+      return {
+        ...state,
+        timeRange: action.payload.timeRange,
+      };
+    case "MUTATE_DISTANCERANGE":
+      return {
+        ...state,
+        distanceRange: action.payload.distanceRange,
+      };
+    case "MUTATE_SHOW":
+      return {
+        ...state,
+        showContent: action.payload.showContent,
       };
     default:
       return state;

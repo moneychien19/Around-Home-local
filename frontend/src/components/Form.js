@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { mutateAddress, mutateLat, mutateLng } from "../action/input";
+import {
+  mutateAddress,
+  mutateLat,
+  mutateLng,
+  mutateTimeRange,
+  mutateDistanceRange,
+  mutateShowContent,
+} from "../action/input";
 import axios from "axios";
 import API_KEY from "../key";
 import { fetchAQI, fetchUV } from "../fetch/fetchEnvironment";
@@ -14,12 +21,6 @@ import {
 import { fetchTheft, fetchAccident } from "../fetch/fetchSafety";
 
 const Form = ({
-  showContent,
-  setShowContent,
-  distanceRange,
-  setDistanceRange,
-  timeRange,
-  setTimeRange,
   setAQIRowData,
   setUVRowData,
   setWQIRowData,
@@ -44,6 +45,11 @@ const Form = ({
   const address = useSelector((state) => state.inputReducer.address);
   const lat = useSelector((state) => state.inputReducer.lat);
   const lng = useSelector((state) => state.inputReducer.lng);
+  const timeRange = useSelector((state) => state.inputReducer.timeRange);
+  const distanceRange = useSelector(
+    (state) => state.inputReducer.distanceRange
+  );
+  const showContent = useSelector((state) => state.inputReducer.showContent);
 
   const [inputAddress, setInputAddress] = useState(address);
 
@@ -64,20 +70,31 @@ const Form = ({
   };
 
   const determineShow = (index) => {
+    let tempShowContent;
     if (showContent[index] === false) {
-      let tempShowContent = JSON.parse(JSON.stringify(showContent));
+      tempShowContent = JSON.parse(JSON.stringify(showContent));
       tempShowContent[index] = true;
-      setShowContent(tempShowContent);
     } else {
-      let tempShowContent = JSON.parse(JSON.stringify(showContent));
+      tempShowContent = JSON.parse(JSON.stringify(showContent));
       tempShowContent[index] = false;
-      setShowContent(tempShowContent);
     }
+    dispatch(mutateShowContent(tempShowContent));
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(mutateAddress(inputAddress));
+    dispatch(
+      mutateDistanceRange(
+        e.target.parentElement.querySelector("div.range select#distanceRange")
+          .value
+      )
+    );
+    dispatch(
+      mutateTimeRange(
+        e.target.parentElement.querySelector("div.range select#timeRange").value
+      )
+    );
 
     await axios
       .get(
@@ -101,15 +118,6 @@ const Form = ({
       .catch((err) => {
         console.log(err);
       });
-
-    // set the range data
-    setDistanceRange(
-      e.target.parentElement.querySelector("div.range select#distanceRange")
-        .value
-    );
-    setTimeRange(
-      e.target.parentElement.querySelector("div.range select#timeRange").value
-    );
   };
 
   // when the address or ranges changes, call API

@@ -15,13 +15,15 @@ function Map({
   disposalLoc,
   theftLoc,
   accidentLoc,
-  distanceRange,
   hidePins,
 }) {
   let apiKey = API_KEY;
   const address = useSelector((state) => state.inputReducer.address);
   const lat = useSelector((state) => state.inputReducer.lat);
   const lng = useSelector((state) => state.inputReducer.lng);
+  const distanceRange = useSelector(
+    (state) => state.inputReducer.distanceRange
+  );
 
   return (
     <div className="card" id="map">

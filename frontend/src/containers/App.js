@@ -9,10 +9,7 @@ import Map from "../components/Map";
 
 function App() {
   // determine the show block
-  let [showContent, setShowContent] = useState([false, false, false]);
-
-  let [distanceRange, setDistanceRange] = useState("1000");
-  let [timeRange, setTimeRange] = useState("6");
+  const showContent = useSelector((state) => state.inputReducer.showContent);
 
   // data fetching
   let [AQIRowData, setAQIRowData] = useState([
@@ -69,12 +66,6 @@ function App() {
   // define views
   let formView = (
     <Form
-      showContent={showContent}
-      setShowContent={setShowContent}
-      distanceRange={distanceRange}
-      setDistanceRange={setDistanceRange}
-      timeRange={timeRange}
-      setTimeRange={setTimeRange}
       setAQIRowData={setAQIRowData}
       setUVRowData={setUVRowData}
       setWQIRowData={setWQIRowData}
@@ -105,25 +96,20 @@ function App() {
   );
   let ecoView = (
     <Eco
-      showContent={showContent}
       greenResRowData={greenResRowData}
       greenStoreRowData={greenStoreRowData}
       rewardResRowData={rewardResRowData}
       garbageRowData={garbageRowData}
       clothesRowData={clothesRowData}
       disposalRowData={disposalRowData}
-      distangeRange={distanceRange}
       hidePins={hidePins}
       setHidePins={setHidePins}
     />
   );
   let safetyView = (
     <Safety
-      showContent={showContent}
       theftRowData={theftRowData}
       accidentRowData={accidentRowData}
-      distanceRange={distanceRange}
-      timeRange={timeRange}
       hidePins={hidePins}
       setHidePins={setHidePins}
     />
@@ -138,7 +124,6 @@ function App() {
       disposalLoc={disposalLoc}
       theftLoc={theftLoc}
       accidentLoc={accidentLoc}
-      distanceRange={distanceRange}
       hidePins={hidePins}
     />
   );

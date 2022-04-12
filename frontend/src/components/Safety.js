@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { distanceMapping, timeMapping } from "../rangeMapping";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import "./Marker_Pin.css";
 
-const Safety = ({
-  showContent,
-  theftRowData,
-  accidentRowData,
-  distanceRange,
-  timeRange,
-  hidePins,
-  setHidePins,
-}) => {
+const Safety = ({ theftRowData, accidentRowData, hidePins, setHidePins }) => {
+  const showContent = useSelector((state) => state.inputReducer.showContent);
+  const timeRange = useSelector((state) => state.inputReducer.timeRange);
+  const distanceRange = useSelector(
+    (state) => state.inputReducer.distanceRange
+  );
+
   useEffect(() => {
     document.querySelectorAll("input.pinIcon").forEach((icon) => {
       let key = icon.id;
