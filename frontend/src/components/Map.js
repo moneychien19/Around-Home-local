@@ -6,22 +6,23 @@ import Marker from "./Marker";
 import Pin from "./Pin";
 
 // Map
-function Map({
-  greenResLoc,
-  greenStoreLoc,
-  rewardResLoc,
-  garbageLoc,
-  clothesLoc,
-  disposalLoc,
-  theftLoc,
-  accidentLoc,
-  distanceRange,
-  hidePins,
-}) {
+function Map({ hidePins }) {
   let apiKey = API_KEY;
   const address = useSelector((state) => state.inputReducer.address);
   const lat = useSelector((state) => state.inputReducer.lat);
   const lng = useSelector((state) => state.inputReducer.lng);
+  const distanceRange = useSelector(
+    (state) => state.inputReducer.distanceRange
+  );
+
+  const theftLoc = useSelector((state) => state.safetyReducer.theftLoc);
+  const accidentLoc = useSelector((state) => state.safetyReducer.accidentLoc);
+  const greenRes = useSelector((state) => state.ecoReducer.greenRes);
+  const greenStore = useSelector((state) => state.ecoReducer.greenStore);
+  const rewardRes = useSelector((state) => state.ecoReducer.rewardRes);
+  const garbage = useSelector((state) => state.ecoReducer.garbage);
+  const clothes = useSelector((state) => state.ecoReducer.clothes);
+  const disposal = useSelector((state) => state.ecoReducer.disposal);
 
   return (
     <div className="card" id="map">
@@ -38,9 +39,9 @@ function Map({
             content={"查詢地址：" + address}
           />
 
-          {!greenResLoc | hidePins["hideGreenRes"]
+          {!greenRes || hidePins["hideGreenRes"]
             ? null
-            : greenResLoc.map((aLoc) => (
+            : greenRes.map((aLoc) => (
                 <Pin
                   lat={aLoc[0]}
                   lng={aLoc[1]}
@@ -50,9 +51,9 @@ function Map({
                   name={aLoc[3]}
                 />
               ))}
-          {!greenStoreLoc | hidePins["hideGreenStore"]
+          {!greenStore || hidePins["hideGreenStore"]
             ? null
-            : greenStoreLoc.map((aLoc) => (
+            : greenStore.map((aLoc) => (
                 <Pin
                   lat={aLoc[0]}
                   lng={aLoc[1]}
@@ -62,9 +63,9 @@ function Map({
                   name={aLoc[3]}
                 />
               ))}
-          {!rewardResLoc | hidePins["hideRewardRes"]
+          {!rewardRes || hidePins["hideRewardRes"]
             ? null
-            : rewardResLoc.map((aLoc) => (
+            : rewardRes.map((aLoc) => (
                 <Pin
                   lat={aLoc[0]}
                   lng={aLoc[1]}
@@ -74,9 +75,9 @@ function Map({
                   name={aLoc[3]}
                 />
               ))}
-          {!garbageLoc | hidePins["hideGarbage"]
+          {!garbage || hidePins["hideGarbage"]
             ? null
-            : garbageLoc.map((aLoc) => (
+            : garbage.map((aLoc) => (
                 <Pin
                   lat={aLoc[0]}
                   lng={aLoc[1]}
@@ -86,9 +87,9 @@ function Map({
                   name={"離開時間：" + aLoc[3]}
                 />
               ))}
-          {!clothesLoc | hidePins["hideClothes"]
+          {!clothes || hidePins["hideClothes"]
             ? null
-            : clothesLoc.map((aLoc) => (
+            : clothes.map((aLoc) => (
                 <Pin
                   lat={aLoc[0]}
                   lng={aLoc[1]}
@@ -98,9 +99,9 @@ function Map({
                   name={aLoc[3]}
                 />
               ))}
-          {!disposalLoc | hidePins["hideDisposal"]
+          {!disposal || hidePins["hideDisposal"]
             ? null
-            : disposalLoc.map((aLoc) => (
+            : disposal.map((aLoc) => (
                 <Pin
                   lat={aLoc[0]}
                   lng={aLoc[1]}
@@ -110,7 +111,7 @@ function Map({
                   name={aLoc[3]}
                 />
               ))}
-          {!theftLoc | hidePins["hideTheft"]
+          {!theftLoc || hidePins["hideTheft"]
             ? null
             : theftLoc.map((aLoc) => (
                 <Pin
@@ -122,7 +123,7 @@ function Map({
                   name={aLoc[3]}
                 />
               ))}
-          {!accidentLoc | hidePins["hideAccident"]
+          {!accidentLoc || hidePins["hideAccident"]
             ? null
             : accidentLoc.map((aLoc) => (
                 <Pin

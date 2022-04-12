@@ -1,5 +1,6 @@
 import { inputReducer } from "./input";
-import { todoReducer } from "./todolist";
-import { otherReducer } from "./other";
+import { envReducer } from "./env";
+import { ecoReducer } from "./eco";
+import { safetyReducer } from "./safety";
 
-export { inputReducer, todoReducer, otherReducer };
+export { inputReducer, envReducer, ecoReducer, safetyReducer };

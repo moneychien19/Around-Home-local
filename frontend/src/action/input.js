@@ -18,3 +18,24 @@ export const mutateLng = (lng) => ({
     lng: lng,
   },
 });
+
+export const mutateTimeRange = (timeRange) => ({
+  type: "MUTATE_TIMERANGE",
+  payload: {
+    timeRange: timeRange,
+  },
+});
+
+export const mutateDistanceRange = (distanceRange) => ({
+  type: "MUTATE_DISTANCERANGE",
+  payload: {
+    distanceRange: distanceRange,
+  },
+});
+
+export const mutateShowContent = (showContent) => ({
+  type: "MUTATE_SHOW",
+  payload: {
+    showContent: showContent,
+  },
+});

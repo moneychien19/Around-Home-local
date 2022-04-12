@@ -1,49 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { mutateAddress, mutateLat, mutateLng } from "../action/input";
+import {
+  mutateAddress,
+  mutateLat,
+  mutateLng,
+  mutateTimeRange,
+  mutateDistanceRange,
+  mutateShowContent,
+} from "../action/input";
 import axios from "axios";
 import API_KEY from "../key";
-import { fetchAQI, fetchUV } from "../fetch/fetchEnvironment";
+import { fetchAQI, fetchUV } from "../utils/fetchEnvironment";
 import {
   fetchGreen,
   fetchGarbage,
   fetchClothes,
   fetchDisposal,
   fetchReward,
-} from "../fetch/fetchEco";
-import { fetchTheft, fetchAccident } from "../fetch/fetchSafety";
+} from "../utils/fetchEco";
+import { fetchTheft, fetchAccident } from "../utils/fetchSafety";
+import { dataHandler } from "../utils/dataHandler";
 
-const Form = ({
-  showContent,
-  setShowContent,
-  distanceRange,
-  setDistanceRange,
-  timeRange,
-  setTimeRange,
-  setAQIRowData,
-  setUVRowData,
-  setWQIRowData,
-  setGreenResLoc,
-  setGreenResRowData,
-  setGreenStoreLoc,
-  setGreenStoreRowData,
-  setRewardResLoc,
-  setRewardResRowData,
-  setGarbageRowData,
-  setGarbageLoc,
-  setClothesRowData,
-  setClothesLoc,
-  setDisposalRowData,
-  setDisposalLoc,
-  setTheftRowData,
-  setAccidentRowData,
-  setTheftLoc,
-  setAccidentLoc,
-}) => {
+const Form = () => {
   const dispatch = useDispatch();
   const address = useSelector((state) => state.inputReducer.address);
   const lat = useSelector((state) => state.inputReducer.lat);
   const lng = useSelector((state) => state.inputReducer.lng);
+  const timeRange = useSelector((state) => state.inputReducer.timeRange);
+  const distanceRange = useSelector(
+    (state) => state.inputReducer.distanceRange
+  );
+  const showContent = useSelector((state) => state.inputReducer.showContent);
 
   const [inputAddress, setInputAddress] = useState(address);
 
@@ -64,20 +51,31 @@ const Form = ({
   };
 
   const determineShow = (index) => {
+    let tempShowContent;
     if (showContent[index] === false) {
-      let tempShowContent = JSON.parse(JSON.stringify(showContent));
+      tempShowContent = JSON.parse(JSON.stringify(showContent));
       tempShowContent[index] = true;
-      setShowContent(tempShowContent);
     } else {
-      let tempShowContent = JSON.parse(JSON.stringify(showContent));
+      tempShowContent = JSON.parse(JSON.stringify(showContent));
       tempShowContent[index] = false;
-      setShowContent(tempShowContent);
     }
+    dispatch(mutateShowContent(tempShowContent));
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(mutateAddress(inputAddress));
+    dispatch(
+      mutateDistanceRange(
+        e.target.parentElement.querySelector("div.range select#distanceRange")
+          .value
+      )
+    );
+    dispatch(
+      mutateTimeRange(
+        e.target.parentElement.querySelector("div.range select#timeRange").value
+      )
+    );
 
     await axios
       .get(
@@ -101,56 +99,38 @@ const Form = ({
       .catch((err) => {
         console.log(err);
       });
-
-    // set the range data
-    setDistanceRange(
-      e.target.parentElement.querySelector("div.range select#distanceRange")
-        .value
-    );
-    setTimeRange(
-      e.target.parentElement.querySelector("div.range select#timeRange").value
-    );
   };
 
   // when the address or ranges changes, call API
-  useEffect(() => {
-    // get "environment" data and set
-    fetchAQI(lat, lng, setAQIRowData);
-    fetchUV(lat, lng, setUVRowData);
-    // fetchWQI(lat, lng, setWQIRowData);
+  useEffect(async () => {
+    // get "env" data
+    let resAQI = await fetchAQI(lat, lng);
+    let resUV = await fetchUV(lat, lng);
 
-    // get "eco" data and set
-    fetchGreen(
-      lat,
-      lng,
-      distanceRange,
-      setGreenResLoc,
-      setGreenResRowData,
-      setGreenStoreLoc,
-      setGreenStoreRowData
-    );
-    fetchReward(lat, lng, distanceRange, setRewardResLoc, setRewardResRowData);
-    fetchGarbage(lat, lng, distanceRange, setGarbageRowData, setGarbageLoc);
-    fetchClothes(lat, lng, distanceRange, setClothesRowData, setClothesLoc);
-    fetchDisposal(lat, lng, distanceRange, setDisposalRowData, setDisposalLoc);
+    // get "eco" data
+    let resGreen = await fetchGreen(lat, lng, distanceRange);
+    let resReward = await fetchReward(lat, lng, distanceRange);
+    let resGarbage = await fetchGarbage(lat, lng, distanceRange);
+    let resClothes = await fetchClothes(lat, lng, distanceRange);
+    let resDisposal = await fetchDisposal(lat, lng, distanceRange);
 
-    // get "safety" data and set
-    fetchTheft(
-      lat,
-      lng,
-      distanceRange,
-      timeRange,
-      setTheftRowData,
-      setTheftLoc
-    );
-    fetchAccident(
-      lat,
-      lng,
-      distanceRange,
-      timeRange,
-      setAccidentRowData,
-      setAccidentLoc
-    );
+    // get "safety" data
+    let resTheft = await fetchTheft(lat, lng, distanceRange, timeRange);
+    let resAccident = await fetchAccident(lat, lng, distanceRange, timeRange);
+
+    // integrate the data and put in the handler
+    let fetchData = {
+      resAQI: resAQI,
+      resUV: resUV,
+      resGreen: resGreen,
+      resReward: resReward,
+      resGarbage: resGarbage,
+      resClothes: resClothes,
+      resDisposal: resDisposal,
+      resTheft: resTheft,
+      resAccident: resAccident,
+    };
+    dataHandler(fetchData, dispatch);
   }, [lat, lng, timeRange, distanceRange]);
 
   return (
