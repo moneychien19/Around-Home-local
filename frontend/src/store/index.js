@@ -1,10 +1,10 @@
 import { createStore, combineReducers } from "redux";
-import { inputReducer, envReducer, otherReducer } from "../reducer";
+import { inputReducer, envReducer, safetyReducer } from "../reducer";
 
 const rootReducer = combineReducers({
   inputReducer,
   envReducer,
-  otherReducer,
+  safetyReducer,
 });
 
 const store = createStore(rootReducer);

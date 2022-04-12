@@ -1,5 +1,5 @@
-let fetchTheft = (lat, lng, distance, month, setTheftRowData, setTheftLoc) => {
-  fetch("http://localhost:8000/api/safety/theft", {
+let fetchTheft = async (lat, lng, distance, month) => {
+  return await fetch("http://localhost:8000/api/safety/theft", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,43 +17,13 @@ let fetchTheft = (lat, lng, distance, month, setTheftRowData, setTheftLoc) => {
       }
       return res.json();
     })
-    .then((data) => {
-      console.log("案件");
-      console.log(data);
-
-      let tempTheft = {
-        自行車竊盜: 0,
-        機車竊盜: 0,
-        汽車竊盜: 0,
-        住宅竊盜: 0,
-        強盜: 0,
-        搶奪: 0,
-      };
-      let tempLoc = [];
-      for (let i = 0; i < data.length; i++) {
-        tempTheft[data[i]["theft_type"]] += 1;
-        tempLoc.push([
-          data[i]["latitude"],
-          data[i]["longitude"],
-          data[i]["theft_add"],
-          data[i]["date"],
-          data[i]["theft_type"],
-        ]);
-      }
-      setTheftRowData(tempTheft);
-      setTheftLoc(tempLoc);
+    .catch((err) => {
+      return err;
     });
 };
 
-let fetchAccident = (
-  lat,
-  lng,
-  distance,
-  month,
-  setAccidentRowData,
-  setAccidentLoc
-) => {
-  fetch("http://localhost:8000/api/safety/accident", {
+let fetchAccident = async (lat, lng, distance, month) => {
+  return await fetch("http://localhost:8000/api/safety/accident", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -71,22 +41,8 @@ let fetchAccident = (
       }
       return res.json();
     })
-    .then((data) => {
-      console.log("交通事故");
-      console.log(data);
-
-      let tempAccident = { 交通事故: data.length };
-      let tempLoc = [];
-      setAccidentRowData(tempAccident);
-      for (let i = 0; i < data.length; i++) {
-        tempLoc.push([
-          data[i]["latitude"],
-          data[i]["longitude"],
-          data[i]["aadd"],
-          data[i]["date"],
-        ]);
-      }
-      setAccidentLoc(tempLoc);
+    .catch((err) => {
+      return err;
     });
 };
 

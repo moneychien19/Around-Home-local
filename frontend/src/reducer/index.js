@@ -1,5 +1,5 @@
 import { inputReducer } from "./input";
 import { envReducer } from "./env";
-import { otherReducer } from "./other";
+import { safetyReducer } from "./safety";
 
-export { inputReducer, envReducer, otherReducer };
+export { inputReducer, envReducer, safetyReducer };

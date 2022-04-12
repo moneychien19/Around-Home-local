@@ -13,8 +13,6 @@ function Map({
   garbageLoc,
   clothesLoc,
   disposalLoc,
-  theftLoc,
-  accidentLoc,
   hidePins,
 }) {
   let apiKey = API_KEY;
@@ -24,6 +22,9 @@ function Map({
   const distanceRange = useSelector(
     (state) => state.inputReducer.distanceRange
   );
+
+  const theftLoc = useSelector((state) => state.safetyReducer.theftLoc);
+  const accidentLoc = useSelector((state) => state.safetyReducer.accidentLoc);
 
   return (
     <div className="card" id="map">

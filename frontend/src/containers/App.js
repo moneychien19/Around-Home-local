@@ -82,14 +82,7 @@ function App() {
       setHidePins={setHidePins}
     />
   );
-  let safetyView = (
-    <Safety
-      theftRowData={theftRowData}
-      accidentRowData={accidentRowData}
-      hidePins={hidePins}
-      setHidePins={setHidePins}
-    />
-  );
+  let safetyView = <Safety hidePins={hidePins} setHidePins={setHidePins} />;
   let mapView = (
     <Map
       greenResLoc={greenResLoc}
@@ -98,8 +91,6 @@ function App() {
       garbageLoc={garbageLoc}
       clothesLoc={clothesLoc}
       disposalLoc={disposalLoc}
-      theftLoc={theftLoc}
-      accidentLoc={accidentLoc}
       hidePins={hidePins}
     />
   );

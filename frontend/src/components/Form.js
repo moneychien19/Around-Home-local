@@ -9,6 +9,12 @@ import {
   mutateShowContent,
 } from "../action/input";
 import { mutateAQI, mutateUV } from "../action/env";
+import {
+  mutateTheftCount,
+  mutateTheftLoc,
+  mutateAccidentCount,
+  mutateAccidentLoc,
+} from "../action/safety";
 import axios from "axios";
 import API_KEY from "../key";
 import { fetchAQI, fetchUV } from "../fetch/fetchEnvironment";
@@ -34,10 +40,6 @@ const Form = ({
   setClothesLoc,
   setDisposalRowData,
   setDisposalLoc,
-  setTheftRowData,
-  setAccidentRowData,
-  setTheftLoc,
-  setAccidentLoc,
 }) => {
   const dispatch = useDispatch();
   const address = useSelector((state) => state.inputReducer.address);
@@ -126,7 +128,7 @@ const Form = ({
       resAQI["aqi"],
       resAQI["status"],
     ];
-    return tempAQI;
+    dispatch(mutateAQI(tempAQI));
   }
 
   function UVDataHandler(resUV) {
@@ -152,17 +154,55 @@ const Form = ({
       uvi,
       status,
     ];
-    return tempUV;
+    dispatch(mutateUV(tempUV));
+  }
+
+  function theftDataHandler(resTheft) {
+    let tempTheft = {
+      自行車竊盜: 0,
+      機車竊盜: 0,
+      汽車竊盜: 0,
+      住宅竊盜: 0,
+      強盜: 0,
+      搶奪: 0,
+    };
+    let tempLoc = [];
+    for (let i = 0; i < resTheft.length; i++) {
+      tempTheft[resTheft[i]["theft_type"]] += 1;
+      tempLoc.push([
+        resTheft[i]["latitude"],
+        resTheft[i]["longitude"],
+        resTheft[i]["theft_add"],
+        resTheft[i]["date"],
+        resTheft[i]["theft_type"],
+      ]);
+    }
+    dispatch(mutateTheftCount(tempTheft));
+    dispatch(mutateTheftLoc(tempLoc));
+  }
+
+  function accidentDataHandler(resAccident) {
+    let tempAccident = { 交通事故: resAccident.length };
+    let tempLoc = [];
+    for (let i = 0; i < resAccident.length; i++) {
+      tempLoc.push([
+        resAccident[i]["latitude"],
+        resAccident[i]["longitude"],
+        resAccident[i]["aadd"],
+        resAccident[i]["date"],
+      ]);
+    }
+    dispatch(mutateAccidentCount(tempAccident));
+    dispatch(mutateAccidentLoc(tempLoc));
   }
 
   // when the address or ranges changes, call API
   useEffect(async () => {
     // get "env" data and set
     let resAQI = await fetchAQI(lat, lng);
-    dispatch(mutateAQI(AQIDataHandler(resAQI)));
-
     let resUV = await fetchUV(lat, lng);
-    dispatch(mutateUV(UVDataHandler(resUV)));
+    AQIDataHandler(resAQI);
+    UVDataHandler(resUV);
 
     // get "eco" data and set
     fetchGreen(
@@ -180,22 +220,10 @@ const Form = ({
     fetchDisposal(lat, lng, distanceRange, setDisposalRowData, setDisposalLoc);
 
     // get "safety" data and set
-    fetchTheft(
-      lat,
-      lng,
-      distanceRange,
-      timeRange,
-      setTheftRowData,
-      setTheftLoc
-    );
-    fetchAccident(
-      lat,
-      lng,
-      distanceRange,
-      timeRange,
-      setAccidentRowData,
-      setAccidentLoc
-    );
+    let resTheft = await fetchTheft(lat, lng, distanceRange, timeRange);
+    let resAccident = await fetchAccident(lat, lng, distanceRange, timeRange);
+    theftDataHandler(resTheft);
+    accidentDataHandler(resAccident);
   }, [lat, lng, timeRange, distanceRange]);
 
   return (

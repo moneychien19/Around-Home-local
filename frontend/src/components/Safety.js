@@ -5,11 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import "./Marker_Pin.css";
 
-const Safety = ({ theftRowData, accidentRowData, hidePins, setHidePins }) => {
+const Safety = ({ hidePins, setHidePins }) => {
   const showContent = useSelector((state) => state.inputReducer.showContent);
   const timeRange = useSelector((state) => state.inputReducer.timeRange);
   const distanceRange = useSelector(
     (state) => state.inputReducer.distanceRange
+  );
+
+  const theftCount = useSelector((state) => state.safetyReducer.theftCount);
+  const accidentCount = useSelector(
+    (state) => state.safetyReducer.accidentCount
   );
 
   useEffect(() => {
@@ -110,7 +115,7 @@ const Safety = ({ theftRowData, accidentRowData, hidePins, setHidePins }) => {
       </div>
       <div className="table">
         <table>
-          {Object.keys(theftRowData).map((aRowKey) => (
+          {Object.keys(theftCount).map((aRowKey) => (
             <tr>
               <td>
                 <FontAwesomeIcon
@@ -121,7 +126,7 @@ const Safety = ({ theftRowData, accidentRowData, hidePins, setHidePins }) => {
                 />
               </td>
               <td>{aRowKey}</td>
-              <td>{theftRowData[aRowKey]} 件</td>
+              <td>{theftCount[aRowKey]} 件</td>
             </tr>
           ))}
           <tr>
@@ -134,7 +139,7 @@ const Safety = ({ theftRowData, accidentRowData, hidePins, setHidePins }) => {
               />
             </td>
             <td>交通事故</td>
-            <td>{accidentRowData["交通事故"]} 件</td>
+            <td>{accidentCount["交通事故"]} 件</td>
           </tr>
         </table>
       </div>
