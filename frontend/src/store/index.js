@@ -1,9 +1,15 @@
 import { createStore, combineReducers } from "redux";
-import { inputReducer, envReducer, safetyReducer } from "../reducer";
+import {
+  inputReducer,
+  envReducer,
+  ecoReducer,
+  safetyReducer,
+} from "../reducer";
 
 const rootReducer = combineReducers({
   inputReducer,
   envReducer,
+  ecoReducer,
   safetyReducer,
 });
 

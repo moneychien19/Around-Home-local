@@ -1,15 +1,7 @@
 const baseUrl = "http://localhost:8000/api/eco/";
 
-let fetchGreen = (
-  lat,
-  lng,
-  distance,
-  setGreenResLoc,
-  setGreenResRowData,
-  setGreenStoreLoc,
-  setGreenStoreRowData
-) => {
-  fetch(baseUrl + "green-store", {
+let fetchGreen = async (lat, lng, distance) => {
+  return await fetch(baseUrl + "green-store", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,45 +18,13 @@ let fetchGreen = (
       }
       return res.json();
     })
-    .then((data) => {
-      console.log("綠色商家");
-      console.log(data);
-
-      let tempResLoc = [];
-      let tempStoreLoc = [];
-      for (let i = 0; i < data.length; i++) {
-        if (data[i]["store_type_id"] === 1) {
-          tempResLoc.push([
-            data[i]["latitude"],
-            data[i]["longitude"],
-            data[i]["gsadd"],
-            data[i]["gsname"],
-          ]);
-        }
-        if (data[i]["store_type_id"] === 2) {
-          tempStoreLoc.push([
-            data[i]["latitude"],
-            data[i]["longitude"],
-            data[i]["gsadd"],
-            data[i]["gsname"],
-          ]);
-        }
-      }
-      setGreenResLoc(tempResLoc);
-      setGreenResRowData(tempResLoc.length);
-      setGreenStoreLoc(tempStoreLoc);
-      setGreenStoreRowData(tempStoreLoc.length);
+    .catch((err) => {
+      return err;
     });
 };
 
-let fetchReward = (
-  lat,
-  lng,
-  distance,
-  setRewardResLoc,
-  setRewardResRowData
-) => {
-  fetch(baseUrl + "reward-store", {
+let fetchReward = async (lat, lng, distance) => {
+  return await fetch(baseUrl + "reward-store", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -81,28 +41,13 @@ let fetchReward = (
       }
       return res.json();
     })
-    .then((data) => {
-      console.log("優惠商家");
-      console.log(data);
-
-      let tempResLoc = [];
-      for (let i = 0; i < data.length; i++) {
-        if (data[i]["store_type_id"] === 1) {
-          tempResLoc.push([
-            data[i]["latitude"],
-            data[i]["longitude"],
-            data[i]["rname"],
-            data[i]["discount"],
-          ]);
-        }
-      }
-      setRewardResLoc(tempResLoc);
-      setRewardResRowData(tempResLoc.length);
+    .catch((err) => {
+      return err;
     });
 };
 
-let fetchGarbage = (lat, lng, distance, setGarbageRowData, setGarbageLoc) => {
-  fetch(baseUrl + "garbage-truck", {
+let fetchGarbage = async (lat, lng, distance) => {
+  return await fetch(baseUrl + "garbage-truck", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -119,28 +64,13 @@ let fetchGarbage = (lat, lng, distance, setGarbageRowData, setGarbageLoc) => {
       }
       return res.json();
     })
-    .then((data) => {
-      console.log("垃圾車停靠點");
-      console.log(data);
-
-      let len = data.length;
-      setGarbageRowData(len);
-
-      let tempLoc = [];
-      for (let i = 0; i < data.length; i++) {
-        tempLoc.push([
-          data[i]["latitude"],
-          data[i]["longitude"],
-          data[i]["tadd"],
-          data[i]["leaving"],
-        ]);
-      }
-      setGarbageLoc(tempLoc);
+    .catch((err) => {
+      return err;
     });
 };
 
-let fetchClothes = (lat, lng, distance, setClothesRowData, setClothesLoc) => {
-  fetch(baseUrl + "clothes-recycle", {
+let fetchClothes = async (lat, lng, distance) => {
+  return await fetch(baseUrl + "clothes-recycle", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -157,33 +87,13 @@ let fetchClothes = (lat, lng, distance, setClothesRowData, setClothesLoc) => {
       }
       return res.json();
     })
-    .then((data) => {
-      console.log("舊衣回收箱");
-      console.log(data);
-
-      let len = data.length;
-      setClothesRowData(len);
-      let tempLoc = [];
-      for (let i = 0; i < data.length; i++) {
-        tempLoc.push([
-          data[i]["latitude"],
-          data[i]["longitude"],
-          data[i]["cadd"],
-          data[i]["agency_name"],
-        ]);
-      }
-      setClothesLoc(tempLoc);
+    .catch((err) => {
+      return err;
     });
 };
 
-let fetchDisposal = (
-  lat,
-  lng,
-  distance,
-  setDisposalRowData,
-  setDisposalLoc
-) => {
-  fetch("http://localhost:8000/api/environment/waste-disposal", {
+let fetchDisposal = async (lat, lng, distance) => {
+  return await fetch("http://localhost:8000/api/environment/waste-disposal", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -200,22 +110,8 @@ let fetchDisposal = (
       }
       return res.json();
     })
-    .then((data) => {
-      console.log("廢棄物處理場");
-      console.log(data);
-
-      let len = data.length;
-      setDisposalRowData(len);
-      let tempLoc = [];
-      for (let i = 0; i < data.length; i++) {
-        tempLoc.push([
-          data[i]["latitude"],
-          data[i]["longitude"],
-          data[i]["wadd"],
-          data[i]["wname"],
-        ]);
-      }
-      setDisposalLoc(tempLoc);
+    .catch((err) => {
+      return err;
     });
 };
 

@@ -5,20 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import "./Marker_Pin.css";
 
-const Eco = ({
-  greenResRowData,
-  greenStoreRowData,
-  rewardResRowData,
-  garbageRowData,
-  clothesRowData,
-  disposalRowData,
-  hidePins,
-  setHidePins,
-}) => {
+const Eco = ({ hidePins, setHidePins }) => {
   const showContent = useSelector((state) => state.inputReducer.showContent);
   const distanceRange = useSelector(
     (state) => state.inputReducer.distanceRange
   );
+
+  const greenRes = useSelector((state) => state.ecoReducer.greenRes);
+  const greenStore = useSelector((state) => state.ecoReducer.greenStore);
+  const rewardRes = useSelector((state) => state.ecoReducer.rewardRes);
+  const garbage = useSelector((state) => state.ecoReducer.garbage);
+  const clothes = useSelector((state) => state.ecoReducer.clothes);
+  const disposal = useSelector((state) => state.ecoReducer.disposal);
 
   useEffect(() => {
     document.querySelectorAll("input.pinIcon").forEach((el) => {
@@ -67,7 +65,7 @@ const Eco = ({
               </label>
             </td>
             <td>綠色友善餐廳</td>
-            <td>{greenResRowData} 間</td>
+            <td>{greenRes.length || 0} 間</td>
           </tr>
           <tr>
             <td>
@@ -88,7 +86,7 @@ const Eco = ({
               </label>
             </td>
             <td>綠色商店</td>
-            <td>{greenStoreRowData} 間</td>
+            <td>{greenStore.length || 0} 間</td>
           </tr>
           <tr>
             <td>
@@ -109,7 +107,7 @@ const Eco = ({
               </label>
             </td>
             <td>自備餐具優惠店家</td>
-            <td>{rewardResRowData} 間</td>
+            <td>{rewardRes.length || 0} 間</td>
           </tr>
           <tr>
             <td>
@@ -130,7 +128,7 @@ const Eco = ({
               </label>
             </td>
             <td>垃圾車停靠點</td>
-            <td>{garbageRowData} 個</td>
+            <td>{garbage.length || 0} 個</td>
           </tr>
           <tr>
             <td>
@@ -151,7 +149,7 @@ const Eco = ({
               </label>
             </td>
             <td>舊衣回收箱</td>
-            <td>{clothesRowData} 個</td>
+            <td>{clothes.length || 0} 個</td>
           </tr>
           <tr>
             <td>
@@ -172,7 +170,7 @@ const Eco = ({
               </label>
             </td>
             <td>公民營廢棄物清除機構</td>
-            <td>{disposalRowData} 間</td>
+            <td>{disposal.length || 0} 間</td>
           </tr>
         </table>
       </div>

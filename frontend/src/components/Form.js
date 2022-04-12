@@ -10,6 +10,14 @@ import {
 } from "../action/input";
 import { mutateAQI, mutateUV } from "../action/env";
 import {
+  mutateGreenStore,
+  mutateGreenRes,
+  mutateRewardRes,
+  mutateGarbage,
+  mutateClothes,
+  mutateDisposal,
+} from "../action/eco";
+import {
   mutateTheftCount,
   mutateTheftLoc,
   mutateAccidentCount,
@@ -27,20 +35,7 @@ import {
 } from "../fetch/fetchEco";
 import { fetchTheft, fetchAccident } from "../fetch/fetchSafety";
 
-const Form = ({
-  setGreenResLoc,
-  setGreenResRowData,
-  setGreenStoreLoc,
-  setGreenStoreRowData,
-  setRewardResLoc,
-  setRewardResRowData,
-  setGarbageRowData,
-  setGarbageLoc,
-  setClothesRowData,
-  setClothesLoc,
-  setDisposalRowData,
-  setDisposalLoc,
-}) => {
+const Form = () => {
   const dispatch = useDispatch();
   const address = useSelector((state) => state.inputReducer.address);
   const lat = useSelector((state) => state.inputReducer.lat);
@@ -167,7 +162,7 @@ const Form = ({
       搶奪: 0,
     };
     let tempLoc = [];
-    for (let i = 0; i < resTheft.length; i++) {
+    for (let i = 0; i < resTheft.length || 0; i++) {
       tempTheft[resTheft[i]["theft_type"]] += 1;
       tempLoc.push([
         resTheft[i]["latitude"],
@@ -182,9 +177,9 @@ const Form = ({
   }
 
   function accidentDataHandler(resAccident) {
-    let tempAccident = { 交通事故: resAccident.length };
+    let tempAccident = { 交通事故: resAccident.length || 0 };
     let tempLoc = [];
-    for (let i = 0; i < resAccident.length; i++) {
+    for (let i = 0; i < resAccident.length || 0; i++) {
       tempLoc.push([
         resAccident[i]["latitude"],
         resAccident[i]["longitude"],
@@ -196,6 +191,85 @@ const Form = ({
     dispatch(mutateAccidentLoc(tempLoc));
   }
 
+  function greenHandler(resGreen) {
+    let tempResLoc = [];
+    let tempStoreLoc = [];
+    for (let i = 0; i < resGreen.length || 0; i++) {
+      if (resGreen[i]["store_type_id"] === 1) {
+        tempResLoc.push([
+          resGreen[i]["latitude"],
+          resGreen[i]["longitude"],
+          resGreen[i]["gsadd"],
+          resGreen[i]["gsname"],
+        ]);
+      }
+      if (resGreen[i]["store_type_id"] === 2) {
+        tempStoreLoc.push([
+          resGreen[i]["latitude"],
+          resGreen[i]["longitude"],
+          resGreen[i]["gsadd"],
+          resGreen[i]["gsname"],
+        ]);
+      }
+    }
+    dispatch(mutateGreenRes(tempResLoc));
+    dispatch(mutateGreenStore(tempStoreLoc));
+  }
+
+  function rewardHandler(resReward) {
+    let tempResLoc = [];
+    for (let i = 0; i < resReward.length || 0; i++) {
+      if (resReward[i]["store_type_id"] === 1) {
+        tempResLoc.push([
+          resReward[i]["latitude"],
+          resReward[i]["longitude"],
+          resReward[i]["rname"],
+          resReward[i]["discount"],
+        ]);
+      }
+    }
+    dispatch(mutateRewardRes(tempResLoc));
+  }
+
+  function garbageHandler(resGarbage) {
+    let tempLoc = [];
+    for (let i = 0; i < resGarbage.length || 0; i++) {
+      tempLoc.push([
+        resGarbage[i]["latitude"],
+        resGarbage[i]["longitude"],
+        resGarbage[i]["tadd"],
+        resGarbage[i]["leaving"],
+      ]);
+    }
+    dispatch(mutateGarbage(tempLoc));
+  }
+
+  function clothesHandler(resClothes) {
+    let tempLoc = [];
+    for (let i = 0; i < resClothes.length || 0; i++) {
+      tempLoc.push([
+        resClothes[i]["latitude"],
+        resClothes[i]["longitude"],
+        resClothes[i]["cadd"],
+        resClothes[i]["agency_name"],
+      ]);
+    }
+    dispatch(mutateClothes(tempLoc));
+  }
+
+  function disposalHandler(resDisposal) {
+    let tempLoc = [];
+    for (let i = 0; i < resDisposal.length || 0; i++) {
+      tempLoc.push([
+        resDisposal[i]["latitude"],
+        resDisposal[i]["longitude"],
+        resDisposal[i]["wadd"],
+        resDisposal[i]["wname"],
+      ]);
+    }
+    dispatch(mutateDisposal(tempLoc));
+  }
+
   // when the address or ranges changes, call API
   useEffect(async () => {
     // get "env" data and set
@@ -205,19 +279,16 @@ const Form = ({
     UVDataHandler(resUV);
 
     // get "eco" data and set
-    fetchGreen(
-      lat,
-      lng,
-      distanceRange,
-      setGreenResLoc,
-      setGreenResRowData,
-      setGreenStoreLoc,
-      setGreenStoreRowData
-    );
-    fetchReward(lat, lng, distanceRange, setRewardResLoc, setRewardResRowData);
-    fetchGarbage(lat, lng, distanceRange, setGarbageRowData, setGarbageLoc);
-    fetchClothes(lat, lng, distanceRange, setClothesRowData, setClothesLoc);
-    fetchDisposal(lat, lng, distanceRange, setDisposalRowData, setDisposalLoc);
+    let resGreen = await fetchGreen(lat, lng, distanceRange);
+    let resReward = await fetchReward(lat, lng, distanceRange);
+    let resGarbage = await fetchGarbage(lat, lng, distanceRange);
+    let resClothes = await fetchClothes(lat, lng, distanceRange);
+    let resDisposal = await fetchDisposal(lat, lng, distanceRange);
+    greenHandler(resGreen);
+    rewardHandler(resReward);
+    garbageHandler(resGarbage);
+    clothesHandler(resClothes);
+    disposalHandler(resDisposal);
 
     // get "safety" data and set
     let resTheft = await fetchTheft(lat, lng, distanceRange, timeRange);
