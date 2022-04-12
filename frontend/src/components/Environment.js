@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-const Environment = ({ AQIRowData, UVRowData, WQIRowData }) => {
+const Environment = () => {
   const header = ["", "指標", "鄰近測站", "測量時間", "數值", "狀態"];
+  const AQI = useSelector((state) => state.envReducer.AQI);
+  const UV = useSelector((state) => state.envReducer.UV);
 
   return (
     <div className="whole">
@@ -28,15 +31,15 @@ const Environment = ({ AQIRowData, UVRowData, WQIRowData }) => {
                     className="light"
                     icon={faCircle}
                     id={
-                      AQIRowData[4] === "良好"
+                      AQI[4] === "良好"
                         ? "good"
-                        : AQIRowData[4] === "普通"
+                        : AQI[4] === "普通"
                         ? "normal"
                         : "danger"
                     }
                   />
                 </td>
-                {AQIRowData.map((anItem) => (
+                {AQI.map((anItem) => (
                   <td>{anItem}</td>
                 ))}
               </tr>
@@ -46,15 +49,15 @@ const Environment = ({ AQIRowData, UVRowData, WQIRowData }) => {
                     className="light"
                     icon={faCircle}
                     id={
-                      UVRowData[4] === "低量級"
+                      UV[4] === "低量級"
                         ? "good"
-                        : UVRowData[4] === "中量級"
+                        : UV[4] === "中量級"
                         ? "normal"
                         : "danger"
                     }
                   />
                 </td>
-                {UVRowData.map((anItem) => (
+                {UV.map((anItem) => (
                   <td>{anItem}</td>
                 ))}
               </tr>

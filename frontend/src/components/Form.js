@@ -8,6 +8,7 @@ import {
   mutateDistanceRange,
   mutateShowContent,
 } from "../action/input";
+import { mutateAQI, mutateUV } from "../action/env";
 import axios from "axios";
 import API_KEY from "../key";
 import { fetchAQI, fetchUV } from "../fetch/fetchEnvironment";
@@ -21,9 +22,6 @@ import {
 import { fetchTheft, fetchAccident } from "../fetch/fetchSafety";
 
 const Form = ({
-  setAQIRowData,
-  setUVRowData,
-  setWQIRowData,
   setGreenResLoc,
   setGreenResRowData,
   setGreenStoreLoc,
@@ -120,12 +118,51 @@ const Form = ({
       });
   };
 
+  function AQIDataHandler(resAQI) {
+    let tempAQI = [
+      "空氣品質指標AQI",
+      resAQI["scounty"] + "-" + resAQI["sname"],
+      resAQI["published_time"],
+      resAQI["aqi"],
+      resAQI["status"],
+    ];
+    return tempAQI;
+  }
+
+  function UVDataHandler(resUV) {
+    let status = "";
+    let uvi = resUV[resUV.length - 1]["uvi"];
+    if (uvi <= 2) {
+      status = "低量級";
+    } else if ((uvi >= 3) & (uvi <= 5)) {
+      status = "中量級";
+    } else if ((uvi >= 6) & (uvi <= 7)) {
+      status = "高量級";
+    } else if ((uvi >= 8) & (uvi <= 10)) {
+      status = "過量級";
+    } else {
+      status = "危量級";
+    }
+    let tempUV = [
+      "紫外線指數",
+      resUV[resUV.length - 1]["county"] +
+        "-" +
+        resUV[resUV.length - 1]["site_name"],
+      resUV[resUV.length - 1]["utime"],
+      uvi,
+      status,
+    ];
+    return tempUV;
+  }
+
   // when the address or ranges changes, call API
-  useEffect(() => {
-    // get "environment" data and set
-    fetchAQI(lat, lng, setAQIRowData);
-    fetchUV(lat, lng, setUVRowData);
-    // fetchWQI(lat, lng, setWQIRowData);
+  useEffect(async () => {
+    // get "env" data and set
+    let resAQI = await fetchAQI(lat, lng);
+    dispatch(mutateAQI(AQIDataHandler(resAQI)));
+
+    let resUV = await fetchUV(lat, lng);
+    dispatch(mutateUV(UVDataHandler(resUV)));
 
     // get "eco" data and set
     fetchGreen(

@@ -12,21 +12,6 @@ function App() {
   const showContent = useSelector((state) => state.inputReducer.showContent);
 
   // data fetching
-  let [AQIRowData, setAQIRowData] = useState([
-    "空氣品質指標AQI",
-    "",
-    "",
-    "",
-    "",
-  ]);
-  let [UVRowData, setUVRowData] = useState(["紫外線指數", "", "", "", ""]);
-  let [WQIRowData, setWQIRowData] = useState([
-    "水庫水質卡爾森指數",
-    "",
-    "",
-    "",
-    "",
-  ]);
   let [greenResLoc, setGreenResLoc] = useState([]);
   let [greenResRowData, setGreenResRowData] = useState(0);
   let [greenStoreLoc, setGreenStoreLoc] = useState([]);
@@ -66,9 +51,6 @@ function App() {
   // define views
   let formView = (
     <Form
-      setAQIRowData={setAQIRowData}
-      setUVRowData={setUVRowData}
-      setWQIRowData={setWQIRowData}
       setGreenResLoc={setGreenResLoc}
       setGreenResRowData={setGreenResRowData}
       setGreenStoreLoc={setGreenStoreLoc}
@@ -87,13 +69,7 @@ function App() {
       setAccidentLoc={setAccidentLoc}
     />
   );
-  let environmentView = (
-    <Environment
-      AQIRowData={AQIRowData}
-      UVRowData={UVRowData}
-      WQIRowData={WQIRowData}
-    />
-  );
+  let environmentView = <Environment />;
   let ecoView = (
     <Eco
       greenResRowData={greenResRowData}
